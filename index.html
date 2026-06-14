@@ -12,21 +12,15 @@
     --mono:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
     --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
   }
-  *{box-sizing:border-box}
-  html,body{margin:0}
-  body{
-    background:
+  *{box-sizing:border-box} html,body{margin:0}
+  body{background:
       linear-gradient(transparent 0,transparent calc(100% - 1px),var(--grid) 100%) 0 0/100% 28px,
       linear-gradient(90deg,transparent 0,transparent calc(100% - 1px),var(--grid) 100%) 0 0/28px 100%,
       var(--bg);
     color:var(--text);font-family:var(--sans);-webkit-font-smoothing:antialiased;
-    min-height:100vh;display:flex;justify-content:center;align-items:flex-start;
-    padding:clamp(16px,4vw,48px);
-  }
-  .sheet{width:100%;max-width:760px;
-    background:linear-gradient(180deg,rgba(20,40,62,.55),rgba(11,22,34,.55));
-    border:1px solid var(--grid-strong);border-radius:4px;
-    box-shadow:0 24px 60px -20px rgba(0,0,0,.6);overflow:hidden;}
+    min-height:100vh;display:flex;justify-content:center;align-items:flex-start;padding:clamp(16px,4vw,48px);}
+  .sheet{width:100%;max-width:760px;background:linear-gradient(180deg,rgba(20,40,62,.55),rgba(11,22,34,.55));
+    border:1px solid var(--grid-strong);border-radius:4px;box-shadow:0 24px 60px -20px rgba(0,0,0,.6);overflow:hidden;}
   header{padding:22px 26px 18px;border-bottom:1px solid var(--grid-strong);
     display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap;}
   .title{display:flex;flex-direction:column;gap:4px}
@@ -60,30 +54,23 @@
   .field input:focus{outline:none;border-color:var(--line)}
   .field .unit{font-family:var(--mono);font-size:13px;color:var(--text-dim)}
   .field .note{font-size:12px;color:var(--text-dim);flex-basis:100%}
-  /* toggles */
   .toggle{display:flex;align-items:flex-start;gap:11px;font-size:13px;color:var(--text);cursor:pointer;line-height:1.45}
   .toggle input{margin:2px 0 0;width:16px;height:16px;accent-color:var(--line);flex:none}
-  .toggle .lbl b{font-weight:600}
-  .toggle .lbl small{display:block;color:var(--text-dim);font-size:12px}
+  .toggle .lbl b{font-weight:600} .toggle .lbl small{display:block;color:var(--text-dim);font-size:12px}
   .flag{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;
     color:var(--datum);border:1px solid var(--datum);border-radius:3px;padding:1px 5px;margin-left:6px;vertical-align:1px}
   .sub-ctl{margin:8px 0 0 27px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
   .swatch{width:26px;height:26px;border-radius:4px;border:1px solid var(--grid-strong);background:#fff;flex:none}
   .mini{font-family:var(--mono);font-size:12px;background:#0a131d;border:1px solid var(--grid-strong);
-    color:var(--text);border-radius:3px;padding:7px 11px;cursor:pointer}
-  .mini:hover{border-color:var(--line)}
+    color:var(--text);border-radius:3px;padding:7px 11px;cursor:pointer} .mini:hover{border-color:var(--line)}
   .mini.active{border-color:var(--datum);color:var(--datum)}
   input[type=range]{accent-color:var(--line);flex:1;min-width:140px}
   .rng-val{font-family:var(--mono);font-size:12px;color:var(--text-dim);min-width:34px;text-align:right}
-  .go{margin-top:4px;width:100%;padding:15px;border:none;border-radius:4px;cursor:pointer;
-    background:var(--line);color:var(--ink);font-family:var(--mono);font-size:14px;font-weight:700;
-    letter-spacing:.06em;text-transform:uppercase;transition:filter .15s,opacity .15s;}
-  .go:hover{filter:brightness(1.08)}
-  .go:disabled{opacity:.4;cursor:not-allowed;background:var(--grid-strong);color:var(--text-dim)}
-  .controls-ref{border-top:1px solid var(--grid-strong);padding-top:16px;display:grid;gap:7px;
-    font-size:13px;color:var(--text-dim);}
-  .controls-ref h3{margin:0 0 2px;font-family:var(--mono);font-size:11px;letter-spacing:.18em;
-    text-transform:uppercase;color:var(--text-dim)}
+  .go{margin-top:4px;width:100%;padding:15px;border:none;border-radius:4px;cursor:pointer;background:var(--line);
+    color:var(--ink);font-family:var(--mono);font-size:14px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;transition:filter .15s,opacity .15s;}
+  .go:hover{filter:brightness(1.08)} .go:disabled{opacity:.4;cursor:not-allowed;background:var(--grid-strong);color:var(--text-dim)}
+  .controls-ref{border-top:1px solid var(--grid-strong);padding-top:16px;display:grid;gap:7px;font-size:13px;color:var(--text-dim);}
+  .controls-ref h3{margin:0 0 2px;font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--text-dim)}
   .controls-ref .row{display:flex;gap:10px}
   .controls-ref kbd{font-family:var(--mono);font-size:11px;background:#0a131d;border:1px solid var(--grid-strong);
     border-radius:3px;padding:2px 7px;color:var(--text);white-space:nowrap;flex:none;min-width:112px;text-align:center;}
@@ -98,7 +85,6 @@
       <div class="title"><span class="eyebrow">Mixed Reality · Datum Overlay</span><h1>Floor Plan AR</h1></div>
       <div class="status" id="status">checking headset…</div>
     </header>
-
     <div class="body">
       <section class="step">
         <div class="step-head"><span class="num">1</span><h2>Load your floor plan</h2></div>
@@ -108,7 +94,6 @@
           <span style="font-size:12px">PNG, JPG, WebP — your plan as a flat image</span>
         </label>
       </section>
-
       <section class="step" id="step2" style="display:none">
         <div class="step-head"><span class="num">2</span><h2>Mark the origin corner</h2>
           <span class="sub">the point you'll match to a real corner</span></div>
@@ -117,59 +102,39 @@
           <div class="hint" id="previewHint">tap the <span class="dot">◈</span> corner of the plan to set the datum</div>
         </div>
       </section>
-
       <section class="step" id="step3" style="display:none">
         <div class="step-head"><span class="num">3</span><h2>Make the background see-through</h2>
           <span class="sub">so your real floor & objects show through</span></div>
-        <label class="toggle">
-          <input type="checkbox" id="keyOn" checked />
+        <label class="toggle"><input type="checkbox" id="keyOn" checked />
           <span class="lbl"><b>Knock out the background color</b>
-            <small>Only the plan's lines/walls draw; everything matching the picked color becomes transparent.</small></span>
-        </label>
-        <div class="sub-ctl">
-          <div class="swatch" id="swatch"></div>
-          <button class="mini" id="sampleBtn">Sample color from plan</button>
-        </div>
-        <div class="sub-ctl">
-          <span style="font-size:12px;color:var(--text-dim);min-width:64px">tolerance</span>
-          <input type="range" id="thresh" min="0.05" max="0.9" step="0.01" value="0.35" />
-          <span class="rng-val" id="threshVal">0.35</span>
-        </div>
+            <small>Only the plan's lines/walls draw; everything matching the picked color becomes transparent.</small></span></label>
+        <div class="sub-ctl"><div class="swatch" id="swatch"></div>
+          <button class="mini" id="sampleBtn">Sample color from plan</button></div>
+        <div class="sub-ctl"><span style="font-size:12px;color:var(--text-dim);min-width:64px">tolerance</span>
+          <input type="range" id="thresh" min="0.05" max="0.9" step="0.01" value="0.35" /><span class="rng-val" id="threshVal">0.35</span></div>
       </section>
-
       <section class="step" id="step4" style="display:none">
-        <div class="step-head"><span class="num">4</span><h2>Set a starting scale</h2>
-          <span class="sub">optional — fine-tune in headset</span></div>
-        <div class="field">
-          <label for="width">Real width of the image</label>
-          <input type="number" id="width" min="0" step="0.01" placeholder="e.g. 9.5" />
-          <span class="unit">meters</span>
-          <span class="note">The full image's left-to-right width in real life. Leave blank to scale by hand in MR.</span>
-        </div>
+        <div class="step-head"><span class="num">4</span><h2>Set a starting scale</h2><span class="sub">optional — fine-tune in headset</span></div>
+        <div class="field"><label for="width">Real width of the image</label>
+          <input type="number" id="width" min="0" step="0.01" placeholder="e.g. 17" /><span class="unit">meters</span>
+          <span class="note">The full image's left-to-right width in real life. Leave blank to scale by hand in MR.</span></div>
       </section>
-
       <section class="step" id="step5" style="display:none">
-        <div class="step-head"><span class="num">5</span><h2>3D & passthrough</h2>
-          <span class="sub">experimental</span></div>
-        <label class="toggle">
-          <input type="checkbox" id="wallsOn" />
-          <span class="lbl"><b>Extrude walls upward<span class="flag">exp</span></b>
-            <small>Lifts everything that isn't background into vertical walls. Cleanest with a walls-only image — text & symbols extrude too.</small></span>
-        </label>
+        <div class="step-head"><span class="num">5</span><h2>3D massing & passthrough</h2><span class="sub">experimental</span></div>
+        <label class="toggle"><input type="checkbox" id="wallsOn" />
+          <span class="lbl"><b>Stand up walls & objects<span class="flag">exp</span></b>
+            <small>Detects the building's walls and raises them tall; raises furniture, fixtures & stairs to a shorter height, colored like the plan.</small></span></label>
         <div class="sub-ctl">
           <label style="font-size:13px;color:var(--text-dim)" for="wallH">wall height</label>
-          <input type="number" id="wallH" min="1" step="0.5" value="9" style="width:84px" />
-          <span class="unit" style="font-family:var(--mono);font-size:13px;color:var(--text-dim)">feet</span>
+          <input type="number" id="wallH" min="1" step="0.5" value="9" style="width:74px" /><span class="unit" style="font-family:var(--mono);font-size:13px;color:var(--text-dim)">ft</span>
+          <label style="font-size:13px;color:var(--text-dim);margin-left:8px" for="objH">object height</label>
+          <input type="number" id="objH" min="0.5" step="0.5" value="3" style="width:74px" /><span class="unit" style="font-family:var(--mono);font-size:13px;color:var(--text-dim)">ft</span>
         </div>
-        <label class="toggle" style="margin-top:4px">
-          <input type="checkbox" id="occlOn" />
-          <span class="lbl"><b>Real-world occlusion<span class="flag">exp</span></b>
-            <small>Uses Quest 3 depth so real objects can hide virtual ones. Can flicker, and on some browser builds may be unstable — toggle off if anything misbehaves.</small></span>
-        </label>
+        <label class="toggle" style="margin-top:4px"><input type="checkbox" id="occlOn" />
+          <span class="lbl"><b>Depth occlusion<span class="flag">exp</span></b>
+            <small>Uses Quest 3 depth so real objects can hide virtual geometry. Toggle live with the B button. Can flicker (especially the flat plan); leave off if anything misbehaves.</small></span></label>
       </section>
-
       <button class="go" id="enter" disabled>Enter Mixed Reality</button>
-
       <div class="controls-ref">
         <h3>In-headset controls</h3>
         <div class="row"><kbd>Right Trigger</kbd><span>Place / re-place the plan's origin where you point at the floor</span></div>
@@ -177,9 +142,9 @@
         <div class="row"><kbd>Right Stick ↕</kbd><span>Scale up / down</span></div>
         <div class="row"><kbd>Left Stick ↕</kbd><span>Opacity (works even when locked)</span></div>
         <div class="row"><kbd>A button</kbd><span>Lock / unlock rotation & scale</span></div>
-        <div class="row"><kbd>B button</kbd><span>Reset rotation & scale</span></div>
+        <div class="row"><kbd>B button</kbd><span>Toggle depth occlusion (if enabled above)</span></div>
         <div class="row"><kbd>X button</kbd><span>Toggle background transparency</span></div>
-        <div class="row"><kbd>Y button</kbd><span>Toggle wall extrusion</span></div>
+        <div class="row"><kbd>Y button</kbd><span>Toggle walls & objects</span></div>
       </div>
     </div>
     <footer id="foot">three.js · WebXR immersive-ar · depth-sensing (opt-in)</footer>
@@ -188,439 +153,384 @@
 <script type="importmap">
 { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js" } }
 </script>
-
 <script type="module">
 import * as THREE from 'three';
 
-// ============================ shared state ============================
 const state = { imageURL:null, imgW:0, imgH:0, aspect:1, originU:0, originV:0, realWidth:null };
+let keyEnabled=true, keyThresh=0.35, keySoft=0.06;
+let keyColorSRGB={r:0,g:0,b:0}, keyColorLinear=new THREE.Color().setRGB(0,0,0,THREE.SRGBColorSpace);
+let floorColorSRGB={r:235,g:205,b:172};
+let wallsWanted=false, wallHeightM=9*0.3048, objHeightM=3*0.3048, occlPref=false;
+const srgb2lin=c=>c<=0.04045?c/12.92:Math.pow((c+0.055)/1.055,2.4);
 
-// chroma key (linear-space comparison to match three's decoded texture samples)
-let keyEnabled = true;
-let keyThresh  = 0.35;
-let keySoft    = 0.06;
-let keyColorSRGB = {r:255,g:255,b:255};
-let keyColorLinear = new THREE.Color().setRGB(1,1,1, THREE.SRGBColorSpace);
+// ---- persistence (works on a self-hosted page; harmless if unavailable) ----
+const SKEY='fpar.v2';
+function saveSettings(){ try{ localStorage.setItem(SKEY, JSON.stringify({
+  originU:state.originU, originV:state.originV, realWidth:state.realWidth,
+  keyEnabled, keyThresh, keyColorSRGB, wallsWanted,
+  wallFt:parseFloat(wallH.value), objFt:parseFloat(objH.value), occlPref:occlOn.checked })); }catch(e){} }
+function loadSettings(){ try{ return JSON.parse(localStorage.getItem(SKEY)||'null'); }catch(e){ return null; } }
+let saved=null;
 
-// walls / occlusion flags
-let wallsWanted = false;
-let wallHeightM = 9 * 0.3048;
-let occlWanted  = false;
+// ---- DOM ----
+const statusEl=document.getElementById('status'), drop=document.getElementById('drop'), fileInput=document.getElementById('file');
+const step2=document.getElementById('step2'),step3=document.getElementById('step3'),step4=document.getElementById('step4'),step5=document.getElementById('step5');
+const preview=document.getElementById('preview'), planCanvas=document.getElementById('planCanvas'), pctx=planCanvas.getContext('2d');
+const previewHint=document.getElementById('previewHint'), enterBtn=document.getElementById('enter'), widthInput=document.getElementById('width');
+const keyOn=document.getElementById('keyOn'), swatch=document.getElementById('swatch'), sampleBtn=document.getElementById('sampleBtn');
+const threshEl=document.getElementById('thresh'), threshVal=document.getElementById('threshVal');
+const wallsOn=document.getElementById('wallsOn'), wallH=document.getElementById('wallH'), objH=document.getElementById('objH'), occlOn=document.getElementById('occlOn');
+let planImg=null, srcCanvas=null, srcCtx=null, pickColorMode=false;
 
-const srgb2lin = c => c <= 0.04045 ? c/12.92 : Math.pow((c+0.055)/1.055, 2.4);
+function setStatus(t,ok){ statusEl.innerHTML=t; statusEl.classList.toggle('bad',ok===false); }
 
-// ============================ 2D setup screen ============================
-const statusEl = document.getElementById('status');
-const drop = document.getElementById('drop');
-const fileInput = document.getElementById('file');
-const step2 = document.getElementById('step2'), step3 = document.getElementById('step3');
-const step4 = document.getElementById('step4'), step5 = document.getElementById('step5');
-const preview = document.getElementById('preview');
-const planCanvas = document.getElementById('planCanvas');
-const pctx = planCanvas.getContext('2d');
-const previewHint = document.getElementById('previewHint');
-const enterBtn = document.getElementById('enter');
-const widthInput = document.getElementById('width');
-const keyOn = document.getElementById('keyOn');
-const swatch = document.getElementById('swatch');
-const sampleBtn = document.getElementById('sampleBtn');
-const threshEl = document.getElementById('thresh'), threshVal = document.getElementById('threshVal');
-const wallsOn = document.getElementById('wallsOn'), wallH = document.getElementById('wallH');
-const occlOn = document.getElementById('occlOn');
+if(navigator.xr && navigator.xr.isSessionSupported){
+  navigator.xr.isSessionSupported('immersive-ar').then(s=>setStatus(s?'headset: <b>ready</b>':'AR not supported here. Open in the <b>Meta Quest Browser</b>.',s))
+    .catch(()=>setStatus('couldn’t query AR — open in the Quest Browser',false));
+} else setStatus('No WebXR. Open in the <b>Meta Quest Browser</b>.',false);
 
-let planImg = null, srcCanvas = null, srcCtx = null, pickColorMode = false;
+// restore numeric/flag prefs immediately
+saved=loadSettings();
+if(saved){
+  if(typeof saved.keyThresh==='number'){ keyThresh=saved.keyThresh; threshEl.value=keyThresh; threshVal.textContent=keyThresh.toFixed(2); }
+  if(saved.realWidth){ widthInput.value=saved.realWidth; state.realWidth=saved.realWidth; }
+  if(saved.wallFt){ wallH.value=saved.wallFt; wallHeightM=saved.wallFt*0.3048; }
+  if(saved.objFt){ objH.value=saved.objFt; objHeightM=saved.objFt*0.3048; }
+  if(typeof saved.keyEnabled==='boolean'){ keyEnabled=saved.keyEnabled; keyOn.checked=keyEnabled; }
+  if(typeof saved.wallsWanted==='boolean'){ wallsWanted=saved.wallsWanted; wallsOn.checked=wallsWanted; }
+  if(typeof saved.occlPref==='boolean'){ occlPref=saved.occlPref; occlOn.checked=occlPref; }
+}
 
-function setStatus(t, ok){ statusEl.innerHTML = t; statusEl.classList.toggle('bad', ok === false); }
-
-if (navigator.xr && navigator.xr.isSessionSupported) {
-  navigator.xr.isSessionSupported('immersive-ar').then(s=>{
-    setStatus(s ? 'headset: <b>ready</b>' : 'AR not supported here. Open in the <b>Meta Quest Browser</b>.', s);
-  }).catch(()=> setStatus('couldn’t query AR — open in the Quest Browser', false));
-} else setStatus('No WebXR. Open in the <b>Meta Quest Browser</b>.', false);
-
-fileInput.addEventListener('change', e=>{ if(e.target.files[0]) loadImage(e.target.files[0]); });
-['dragenter','dragover'].forEach(ev=> drop.addEventListener(ev, e=>{e.preventDefault();drop.classList.add('drag');}));
-['dragleave','drop'].forEach(ev=> drop.addEventListener(ev, e=>{e.preventDefault();drop.classList.remove('drag');}));
-drop.addEventListener('drop', e=>{ const f=e.dataTransfer.files[0]; if(f) loadImage(f); });
+fileInput.addEventListener('change',e=>{ if(e.target.files[0]) loadImage(e.target.files[0]); });
+['dragenter','dragover'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.add('drag');}));
+['dragleave','drop'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.remove('drag');}));
+drop.addEventListener('drop',e=>{ const f=e.dataTransfer.files[0]; if(f) loadImage(f); });
 
 function loadImage(file){
-  if(!file.type.startsWith('image/')){ setStatus('that file isn’t an image', false); return; }
-  const reader = new FileReader();
-  reader.onerror = ()=> setStatus('couldn’t read that file', false);
-  reader.onload = ()=>{
-    state.imageURL = reader.result; // data: URL (CSP-safe)
-    const img = new Image();
-    img.onload = ()=>{
-      planImg = img;
-      state.imgW = img.naturalWidth; state.imgH = img.naturalHeight;
-      state.aspect = state.imgW / state.imgH;
-      state.originU = 0; state.originV = 0;
-      // capped full-res source canvas for sampling + wall mask
-      const cap = 2048; let sw = state.imgW, sh = state.imgH;
-      const sc = Math.min(1, cap / Math.max(sw, sh)); sw = Math.round(sw*sc); sh = Math.round(sh*sc);
-      srcCanvas = document.createElement('canvas'); srcCanvas.width = sw; srcCanvas.height = sh;
-      srcCtx = srcCanvas.getContext('2d', {willReadFrequently:true});
-      srcCtx.drawImage(img, 0, 0, sw, sh);
-      step2.style.display=''; step3.style.display=''; step4.style.display=''; step5.style.display='';
-      autoDetectKey();
-      layoutCanvas();
-      enterBtn.disabled = false;
+  if(!file.type.startsWith('image/')){ setStatus('that file isn’t an image',false); return; }
+  const reader=new FileReader();
+  reader.onerror=()=>setStatus('couldn’t read that file',false);
+  reader.onload=()=>{
+    state.imageURL=reader.result;
+    const img=new Image();
+    img.onload=()=>{
+      planImg=img; state.imgW=img.naturalWidth; state.imgH=img.naturalHeight; state.aspect=state.imgW/state.imgH;
+      state.originU=0; state.originV=0;
+      const cap=2048; let sw=state.imgW, sh=state.imgH; const sc=Math.min(1,cap/Math.max(sw,sh));
+      sw=Math.round(sw*sc); sh=Math.round(sh*sc);
+      srcCanvas=document.createElement('canvas'); srcCanvas.width=sw; srcCanvas.height=sh;
+      srcCtx=srcCanvas.getContext('2d',{willReadFrequently:true}); srcCtx.drawImage(img,0,0,sw,sh);
+      step2.style.display='';step3.style.display='';step4.style.display='';step5.style.display='';
+      autoDetectKey(); detectFloorColor();
+      if(saved){
+        if(saved.keyColorSRGB) setKeyColor(saved.keyColorSRGB.r,saved.keyColorSRGB.g,saved.keyColorSRGB.b);
+        if(typeof saved.originU==='number'){ state.originU=saved.originU; state.originV=saved.originV; }
+      }
+      layoutCanvas(); enterBtn.disabled=false;
     };
-    img.onerror = ()=> setStatus('couldn’t decode that image', false);
-    img.src = state.imageURL;
+    img.onerror=()=>setStatus('couldn’t decode that image',false);
+    img.src=state.imageURL;
   };
   reader.readAsDataURL(file);
 }
 
 function layoutCanvas(){
   if(!planImg) return;
-  const w = Math.min(preview.clientWidth || 700, planImg.naturalWidth);
-  planCanvas.width = w;
-  planCanvas.height = Math.round(w / state.aspect);
-  drawPlan();
+  const w=Math.min(preview.clientWidth||700, planImg.naturalWidth);
+  planCanvas.width=w; planCanvas.height=Math.round(w/state.aspect); drawPlan();
 }
-window.addEventListener('resize', layoutCanvas);
+window.addEventListener('resize',layoutCanvas);
 
 function drawPlan(){
   pctx.clearRect(0,0,planCanvas.width,planCanvas.height);
-  pctx.drawImage(planImg, 0,0, planCanvas.width, planCanvas.height);
-  const x = state.originU * planCanvas.width, y = state.originV * planCanvas.height;
-  pctx.save();
-  pctx.strokeStyle = '#ffb703'; pctx.lineWidth = 2;
+  pctx.drawImage(planImg,0,0,planCanvas.width,planCanvas.height);
+  const x=state.originU*planCanvas.width, y=state.originV*planCanvas.height;
+  pctx.save(); pctx.strokeStyle='#ffb703'; pctx.lineWidth=2;
   pctx.beginPath(); pctx.moveTo(x-13,y); pctx.lineTo(x+13,y); pctx.moveTo(x,y-13); pctx.lineTo(x,y+13); pctx.stroke();
-  pctx.beginPath(); pctx.arc(x,y,8,0,Math.PI*2); pctx.stroke();
-  pctx.fillStyle = 'rgba(255,183,3,.18)'; pctx.fill();
-  pctx.restore();
+  pctx.beginPath(); pctx.arc(x,y,8,0,Math.PI*2); pctx.stroke(); pctx.fillStyle='rgba(255,183,3,.18)'; pctx.fill(); pctx.restore();
 }
 
-planCanvas.addEventListener('click', e=>{
-  const r = planCanvas.getBoundingClientRect();
-  const u = Math.min(1, Math.max(0, (e.clientX - r.left) / r.width));
-  const v = Math.min(1, Math.max(0, (e.clientY - r.top)  / r.height));
+planCanvas.addEventListener('click',e=>{
+  const r=planCanvas.getBoundingClientRect();
+  const u=Math.min(1,Math.max(0,(e.clientX-r.left)/r.width)), v=Math.min(1,Math.max(0,(e.clientY-r.top)/r.height));
   if(pickColorMode){
-    const px = Math.floor(u * srcCanvas.width), py = Math.floor(v * srcCanvas.height);
-    const d = srcCtx.getImageData(px, py, 1, 1).data;
-    setKeyColor(d[0], d[1], d[2]);
-    pickColorMode = false; preview.classList.remove('pick'); sampleBtn.classList.remove('active');
-    previewHint.innerHTML = 'tap the <span class="dot">◈</span> corner of the plan to set the datum';
-  } else {
-    state.originU = u; state.originV = v; drawPlan();
-  }
+    const px=Math.floor(u*srcCanvas.width), py=Math.floor(v*srcCanvas.height);
+    const d=srcCtx.getImageData(px,py,1,1).data; setKeyColor(d[0],d[1],d[2]);
+    pickColorMode=false; preview.classList.remove('pick'); sampleBtn.classList.remove('active');
+    previewHint.innerHTML='tap the <span class="dot">◈</span> corner of the plan to set the datum'; saveSettings();
+  } else { state.originU=u; state.originV=v; drawPlan(); saveSettings(); }
 });
 
 function setKeyColor(r,g,b){
-  keyColorSRGB = {r,g,b};
-  keyColorLinear = new THREE.Color().setRGB(r/255, g/255, b/255, THREE.SRGBColorSpace);
-  swatch.style.background = `rgb(${r},${g},${b})`;
-  if(planeMat && planeMat.userData.shader) planeMat.userData.shader.uniforms.uKeyColor.value.copy(keyColorLinear);
+  keyColorSRGB={r,g,b};
+  keyColorLinear=new THREE.Color().setRGB(r/255,g/255,b/255,THREE.SRGBColorSpace);
+  swatch.style.background=`rgb(${r},${g},${b})`;
+  if(planeMat&&planeMat.userData.shader) planeMat.userData.shader.uniforms.uKeyColor.value.copy(keyColorLinear);
 }
-
 function autoDetectKey(){
-  const n = 80, dc = document.createElement('canvas');
-  dc.width = n; dc.height = Math.max(1, Math.round(n / state.aspect));
-  const dctx = dc.getContext('2d', {willReadFrequently:true});
-  dctx.drawImage(srcCanvas, 0, 0, dc.width, dc.height);
-  const d = dctx.getImageData(0,0,dc.width,dc.height).data;
-  const hist = new Map();
-  for(let i=0;i<d.length;i+=4){
-    if(d[i+3] < 128) continue;
-    const k = ((d[i]>>3)<<10)|((d[i+1]>>3)<<5)|(d[i+2]>>3);
-    hist.set(k, (hist.get(k)||0)+1);
-  }
-  let best=-1, bk=0; for(const [k,v] of hist) if(v>best){ best=v; bk=k; }
-  setKeyColor((((bk>>10)&31)<<3)+4, (((bk>>5)&31)<<3)+4, ((bk&31)<<3)+4);
+  const n=80,dc=document.createElement('canvas'); dc.width=n; dc.height=Math.max(1,Math.round(n/state.aspect));
+  const x=dc.getContext('2d',{willReadFrequently:true}); x.drawImage(srcCanvas,0,0,dc.width,dc.height);
+  const d=x.getImageData(0,0,dc.width,dc.height).data, hist=new Map();
+  for(let i=0;i<d.length;i+=4){ if(d[i+3]<128) continue; const k=((d[i]>>3)<<10)|((d[i+1]>>3)<<5)|(d[i+2]>>3); hist.set(k,(hist.get(k)||0)+1); }
+  let best=-1,bk=0; for(const [k,v] of hist) if(v>best){best=v;bk=k;}
+  setKeyColor((((bk>>10)&31)<<3)+4,(((bk>>5)&31)<<3)+4,((bk&31)<<3)+4);
+}
+function detectFloorColor(){
+  const n=100,dc=document.createElement('canvas'); dc.width=n; dc.height=Math.max(1,Math.round(n/state.aspect));
+  const x=dc.getContext('2d',{willReadFrequently:true}); x.drawImage(srcCanvas,0,0,dc.width,dc.height);
+  const d=x.getImageData(0,0,dc.width,dc.height).data, hist=new Map();
+  for(let i=0;i<d.length;i+=4){ const L=0.299*d[i]+0.587*d[i+1]+0.114*d[i+2]; if(L<70) continue;
+    const k=((d[i]>>4)<<8)|((d[i+1]>>4)<<4)|(d[i+2]>>4); hist.set(k,(hist.get(k)||0)+1); }
+  let best=-1,bk=0; for(const [k,v] of hist) if(v>best){best=v;bk=k;}
+  if(best>=0) floorColorSRGB={r:(((bk>>8)&15)<<4)+8,g:(((bk>>4)&15)<<4)+8,b:((bk&15)<<4)+8};
 }
 
-sampleBtn.addEventListener('click', ()=>{
-  pickColorMode = !pickColorMode;
-  preview.classList.toggle('pick', pickColorMode);
-  sampleBtn.classList.toggle('active', pickColorMode);
-  previewHint.innerHTML = pickColorMode
-    ? 'tap a <b>background</b> area to sample its color'
-    : 'tap the <span class="dot">◈</span> corner of the plan to set the datum';
+sampleBtn.addEventListener('click',()=>{
+  pickColorMode=!pickColorMode; preview.classList.toggle('pick',pickColorMode); sampleBtn.classList.toggle('active',pickColorMode);
+  previewHint.innerHTML=pickColorMode?'tap a <b>background</b> area to sample its color':'tap the <span class="dot">◈</span> corner of the plan to set the datum';
 });
-keyOn.addEventListener('change', ()=>{ keyEnabled = keyOn.checked; if(planeMat&&planeMat.userData.shader) planeMat.userData.shader.uniforms.uKeyEnabled.value = keyEnabled?1:0; });
-threshEl.addEventListener('input', ()=>{ keyThresh = parseFloat(threshEl.value); threshVal.textContent = keyThresh.toFixed(2);
-  if(planeMat&&planeMat.userData.shader) planeMat.userData.shader.uniforms.uKeyThresh.value = keyThresh; });
-widthInput.addEventListener('input', ()=>{ const v=parseFloat(widthInput.value); state.realWidth=(isFinite(v)&&v>0)?v:null; });
-wallsOn.addEventListener('change', ()=> wallsWanted = wallsOn.checked);
-wallH.addEventListener('input', ()=>{ const v=parseFloat(wallH.value); wallHeightM=(isFinite(v)&&v>0)?v*0.3048:9*0.3048; });
-occlOn.addEventListener('change', ()=> occlWanted = occlOn.checked);
-enterBtn.addEventListener('click', startAR);
+keyOn.addEventListener('change',()=>{ keyEnabled=keyOn.checked; if(planeMat&&planeMat.userData.shader) planeMat.userData.shader.uniforms.uKeyEnabled.value=keyEnabled?1:0; saveSettings(); });
+threshEl.addEventListener('input',()=>{ keyThresh=parseFloat(threshEl.value); threshVal.textContent=keyThresh.toFixed(2);
+  if(planeMat&&planeMat.userData.shader) planeMat.userData.shader.uniforms.uKeyThresh.value=keyThresh; saveSettings(); });
+widthInput.addEventListener('input',()=>{ const v=parseFloat(widthInput.value); state.realWidth=(isFinite(v)&&v>0)?v:null; saveSettings(); });
+wallsOn.addEventListener('change',()=>{ wallsWanted=wallsOn.checked; saveSettings(); });
+wallH.addEventListener('input',()=>{ const v=parseFloat(wallH.value); wallHeightM=(isFinite(v)&&v>0)?v*0.3048:9*0.3048; saveSettings(); });
+objH.addEventListener('input',()=>{ const v=parseFloat(objH.value); objHeightM=(isFinite(v)&&v>0)?v*0.3048:3*0.3048; saveSettings(); });
+occlOn.addEventListener('change',()=>{ occlPref=occlOn.checked; saveSettings(); });
+enterBtn.addEventListener('click',()=>{ saveSettings(); startAR(); });
 
-// ============================ AR ============================
-let renderer, scene, camera, contentGroup, planeMesh, planeMat, wallGroup, reticle, pointer, hud, hudTex, hudCanvas, hudCtx;
-let placed=false, locked=false, wallsBuilt=false, occlActive=false;
-let userScale=3, userRotation=0, opacity=0.85, lastT=0, hudDirty=true;
-let prevBtn = {a:false,b:false,x:false,y:false};
-let ctrlRight, ctrlLeft;
-const FLOOR_Y=0, PLANE_LIFT=0.01;
+// =========================== AR ===========================
+let renderer,scene,camera,contentGroup,planeMesh,planeMat,wallSub,objSub,reticle,pointer,hud,hudTex,hudCanvas,hudCtx;
+let placed=false,locked=false,structureBuilt=false,occlSupported=false,occlEnabled=false;
+let userScale=3,userRotation=0,opacity=0.85,lastT=0,hudDirty=true,flash='';
+let prevBtn={a:false,b:false,x:false,y:false};
+let ctrlRight,ctrlLeft;
+const FLOOR_Y=0,PLANE_LIFT=0.01;
 
 function buildInit(withDepth){
-  const init = { requiredFeatures:['local-floor'], optionalFeatures:['hit-test','plane-detection','anchors','bounded-floor'] };
-  if(withDepth){ init.optionalFeatures.push('depth-sensing');
-    init.depthSensing = { usagePreference:['gpu-optimized'], dataFormatPreference:['luminance-alpha'] }; }
+  const init={requiredFeatures:['local-floor'],optionalFeatures:['hit-test','plane-detection','anchors','bounded-floor']};
+  if(withDepth){ init.optionalFeatures.push('depth-sensing'); init.depthSensing={usagePreference:['gpu-optimized'],dataFormatPreference:['luminance-alpha']}; }
   return init;
 }
-
 async function startAR(){
   if(!navigator.xr) return;
   let session;
-  try { session = await navigator.xr.requestSession('immersive-ar', buildInit(occlWanted)); occlActive = occlWanted; }
+  try{ session=await navigator.xr.requestSession('immersive-ar',buildInit(occlPref)); }
   catch(e){
-    if(occlWanted){ try { session = await navigator.xr.requestSession('immersive-ar', buildInit(false)); occlActive=false;
-        setStatus('depth occlusion unavailable — running without it', false); }
-      catch(e2){ setStatus('couldn’t start AR: '+e2.message, false); return; } }
-    else { setStatus('couldn’t start AR: '+e.message, false); return; }
+    if(occlPref){ try{ session=await navigator.xr.requestSession('immersive-ar',buildInit(false)); setStatus('depth unavailable — running without occlusion',false); }
+      catch(e2){ setStatus('couldn’t start AR: '+e2.message,false); return; } }
+    else { setStatus('couldn’t start AR: '+e.message,false); return; }
   }
+  const ef=session.enabledFeatures||[]; occlSupported=ef.indexOf('depth-sensing')>=0; occlEnabled=occlSupported;
 
-  renderer = new THREE.WebGLRenderer({ antialias:true, alpha:true });
-  renderer.setPixelRatio(window.devicePixelRatio);
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  renderer.outputColorSpace = THREE.SRGBColorSpace;
-  renderer.xr.enabled = true;
-  renderer.xr.setReferenceSpaceType('local-floor');
-  document.body.appendChild(renderer.domElement);
-  await renderer.xr.setSession(session);
+  renderer=new THREE.WebGLRenderer({antialias:true,alpha:true});
+  renderer.setPixelRatio(window.devicePixelRatio); renderer.setSize(window.innerWidth,window.innerHeight);
+  renderer.outputColorSpace=THREE.SRGBColorSpace; renderer.xr.enabled=true; renderer.xr.setReferenceSpaceType('local-floor');
+  document.body.appendChild(renderer.domElement); await renderer.xr.setSession(session);
 
-  scene = new THREE.Scene();
-  camera = new THREE.PerspectiveCamera(70, window.innerWidth/window.innerHeight, 0.01, 50);
-
+  scene=new THREE.Scene(); camera=new THREE.PerspectiveCamera(70,window.innerWidth/window.innerHeight,0.01,50);
   buildPlane(); buildReticle(); buildPointer(); buildHUD();
 
-  const c0 = renderer.xr.getController(0), c1 = renderer.xr.getController(1);
-  [c0,c1].forEach(c=>{
-    c.addEventListener('connected', e=>{ c.userData.handedness = e.data.handedness; });
-    c.addEventListener('select', ()=>{ if(c.userData.handedness === 'right') placeAtReticle(); });
-    scene.add(c);
-  });
-  ctrlRight = c0; ctrlLeft = c1;
+  const c0=renderer.xr.getController(0),c1=renderer.xr.getController(1);
+  [c0,c1].forEach(c=>{ c.addEventListener('connected',e=>{c.userData.handedness=e.data.handedness;});
+    c.addEventListener('select',()=>{ if(c.userData.handedness==='right') placeAtReticle(); }); scene.add(c); });
+  ctrlRight=c0; ctrlLeft=c1;
 
   if(wallsWanted) setWalls(true);
-  session.addEventListener('end', cleanup);
+  session.addEventListener('end',cleanup);
   renderer.setAnimationLoop(onFrame);
 }
 
 function buildPlane(){
-  const tex = new THREE.TextureLoader().load(state.imageURL);
-  tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = 8;
-  planeMat = new THREE.MeshBasicMaterial({ map:tex, transparent:true, opacity, side:THREE.DoubleSide,
-    toneMapped:false, depthWrite:false, alphaTest:0.02 });
-  planeMat.onBeforeCompile = (sh)=>{
-    sh.uniforms.uKeyColor   = { value: keyColorLinear };
-    sh.uniforms.uKeyThresh  = { value: keyThresh };
-    sh.uniforms.uKeySoft    = { value: keySoft };
-    sh.uniforms.uKeyEnabled = { value: keyEnabled ? 1 : 0 };
-    sh.fragmentShader = 'uniform vec3 uKeyColor;uniform float uKeyThresh;uniform float uKeySoft;uniform float uKeyEnabled;\n' + sh.fragmentShader;
-    sh.fragmentShader = sh.fragmentShader.replace('#include <map_fragment>',
+  const tex=new THREE.TextureLoader().load(state.imageURL); tex.colorSpace=THREE.SRGBColorSpace; tex.anisotropy=8;
+  planeMat=new THREE.MeshBasicMaterial({map:tex,transparent:true,opacity,side:THREE.DoubleSide,toneMapped:false,depthWrite:false,alphaTest:0.02});
+  planeMat.onBeforeCompile=(sh)=>{
+    sh.uniforms.uKeyColor={value:keyColorLinear}; sh.uniforms.uKeyThresh={value:keyThresh};
+    sh.uniforms.uKeySoft={value:keySoft}; sh.uniforms.uKeyEnabled={value:keyEnabled?1:0};
+    sh.fragmentShader='uniform vec3 uKeyColor;uniform float uKeyThresh;uniform float uKeySoft;uniform float uKeyEnabled;\n'+sh.fragmentShader;
+    sh.fragmentShader=sh.fragmentShader.replace('#include <map_fragment>',
       `#include <map_fragment>
-       if(uKeyEnabled > 0.5){
-         float kd = distance(sampledDiffuseColor.rgb, uKeyColor);
-         diffuseColor.a *= smoothstep(uKeyThresh, uKeyThresh + uKeySoft, kd);
-       }`);
-    planeMat.userData.shader = sh;
+       if(uKeyEnabled>0.5){ float kd=distance(sampledDiffuseColor.rgb,uKeyColor); diffuseColor.a*=smoothstep(uKeyThresh,uKeyThresh+uKeySoft,kd); }`);
+    planeMat.userData.shader=sh;
   };
-  planeMesh = new THREE.Mesh(new THREE.PlaneGeometry(state.aspect, 1), planeMat);
-  planeMesh.rotation.x = -Math.PI/2;
-  planeMesh.position.set(-((state.originU-0.5)*state.aspect), 0, (0.5 - state.originV));
-
-  contentGroup = new THREE.Group(); contentGroup.add(planeMesh); contentGroup.visible = false;
-  wallGroup = new THREE.Group(); wallGroup.visible = false; contentGroup.add(wallGroup);
-
-  if(state.realWidth) userScale = state.realWidth / state.aspect;
-  applyTransform();
-  scene.add(contentGroup);
+  planeMesh=new THREE.Mesh(new THREE.PlaneGeometry(state.aspect,1),planeMat);
+  planeMesh.rotation.x=-Math.PI/2;
+  planeMesh.position.set(-((state.originU-0.5)*state.aspect),0,(0.5-state.originV));
+  contentGroup=new THREE.Group(); contentGroup.add(planeMesh); contentGroup.visible=false;
+  wallSub=new THREE.Group(); objSub=new THREE.Group(); wallSub.visible=objSub.visible=false;
+  contentGroup.add(wallSub); contentGroup.add(objSub);
+  if(state.realWidth) userScale=state.realWidth/state.aspect;
+  applyTransform(); scene.add(contentGroup);
 }
-
-function buildReticle(){
-  reticle = new THREE.Mesh(new THREE.RingGeometry(0.07,0.09,40).rotateX(-Math.PI/2),
-    new THREE.MeshBasicMaterial({color:0xffb703}));
-  reticle.visible = false; scene.add(reticle);
-}
-function buildPointer(){
-  const g = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0,0,0), new THREE.Vector3(0,0,-5)]);
-  pointer = new THREE.Line(g, new THREE.LineBasicMaterial({color:0x4cc9f0, transparent:true, opacity:0.6}));
-  pointer.visible = false; scene.add(pointer);
-}
-function buildHUD(){
-  hudCanvas = document.createElement('canvas'); hudCanvas.width = 760; hudCanvas.height = 300;
-  hudCtx = hudCanvas.getContext('2d');
-  hudTex = new THREE.CanvasTexture(hudCanvas); hudTex.colorSpace = THREE.SRGBColorSpace;
-  hud = new THREE.Mesh(new THREE.PlaneGeometry(0.44, 0.174),
-    new THREE.MeshBasicMaterial({map:hudTex, transparent:true, toneMapped:false, depthTest:false, depthWrite:false}));
-  hud.renderOrder = 999; scene.add(hud);
-}
+function buildReticle(){ reticle=new THREE.Mesh(new THREE.RingGeometry(0.07,0.09,40).rotateX(-Math.PI/2),new THREE.MeshBasicMaterial({color:0xffb703})); reticle.visible=false; scene.add(reticle); }
+function buildPointer(){ const g=new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0,0,0),new THREE.Vector3(0,0,-5)]);
+  pointer=new THREE.Line(g,new THREE.LineBasicMaterial({color:0x4cc9f0,transparent:true,opacity:0.6})); pointer.visible=false; scene.add(pointer); }
+function buildHUD(){ hudCanvas=document.createElement('canvas'); hudCanvas.width=760; hudCanvas.height=300; hudCtx=hudCanvas.getContext('2d');
+  hudTex=new THREE.CanvasTexture(hudCanvas); hudTex.colorSpace=THREE.SRGBColorSpace;
+  hud=new THREE.Mesh(new THREE.PlaneGeometry(0.50,0.197),new THREE.MeshBasicMaterial({map:hudTex,transparent:true,toneMapped:false,depthTest:false,depthWrite:false}));
+  hud.renderOrder=999; scene.add(hud); }
 
 function applyTransform(){
   if(!contentGroup) return;
-  contentGroup.scale.setScalar(userScale);
-  contentGroup.rotation.y = userRotation;
-  if(wallGroup) wallGroup.scale.set(1, wallHeightM / userScale, 1);
-  hudDirty = true;
+  contentGroup.scale.setScalar(userScale); contentGroup.rotation.y=userRotation;
+  if(wallSub) wallSub.scale.set(1,wallHeightM/userScale,1);
+  if(objSub) objSub.scale.set(1,objHeightM/userScale,1);
+  hudDirty=true;
 }
+function placeAtReticle(){ if(!reticle.visible) return; contentGroup.position.copy(reticle.position);
+  contentGroup.position.y=FLOOR_Y+PLANE_LIFT; contentGroup.visible=true; placed=true; hudDirty=true; }
 
-function placeAtReticle(){
-  if(!reticle.visible) return;
-  contentGroup.position.copy(reticle.position);
-  contentGroup.position.y = FLOOR_Y + PLANE_LIFT;
-  contentGroup.visible = true; placed = true; hudDirty = true;
-}
+// ---------- image processing for walls / objects ----------
+function morph(src,w,h,it,dil){ let a=Uint8Array.from(src);
+  for(let k=0;k<it;k++){ const b=new Uint8Array(w*h);
+    for(let y=0;y<h;y++) for(let x=0;x<w;x++){ const i=y*w+x;
+      const up=y>0?a[i-w]:0,dn=y<h-1?a[i+w]:0,lf=x>0?a[i-1]:0,rt=x<w-1?a[i+1]:0;
+      b[i]=dil?((a[i]|up|dn|lf|rt)?1:0):((a[i]&&up&&dn&&lf&&rt)?1:0); }
+    a=b; } return a; }
+const dilate=(m,w,h,it)=>morph(m,w,h,it,true), erode=(m,w,h,it)=>morph(m,w,h,it,false);
+const opening=(m,w,h,it)=>dilate(erode(m,w,h,it),w,h,it), closing=(m,w,h,it)=>erode(dilate(m,w,h,it),w,h,it);
+function and2(a,b){ const o=new Uint8Array(a.length); for(let i=0;i<a.length;i++) o[i]=(a[i]&&b[i])?1:0; return o; }
+function and3(a,b,c){ const o=new Uint8Array(a.length); for(let i=0;i<a.length;i++) o[i]=(a[i]&&b[i]&&c[i])?1:0; return o; }
+function notM(a){ const o=new Uint8Array(a.length); for(let i=0;i<a.length;i++) o[i]=a[i]?0:1; return o; }
+function fillHoles(mask,w,h){ const out=Uint8Array.from(mask), vis=new Uint8Array(w*h), st=[];
+  const tryp=(x,y)=>{ const i=y*w+x; if(!mask[i]&&!vis[i]){ vis[i]=1; st.push(i); } };
+  for(let x=0;x<w;x++){ tryp(x,0); tryp(x,h-1); } for(let y=0;y<h;y++){ tryp(0,y); tryp(w-1,y); }
+  while(st.length){ const i=st.pop(),x=i%w,y=(i/w)|0; if(x>0)tryp(x-1,y); if(x<w-1)tryp(x+1,y); if(y>0)tryp(x,y-1); if(y<h-1)tryp(x,y+1); }
+  for(let i=0;i<w*h;i++) if(!mask[i]&&!vis[i]) out[i]=1; return out; }
+function removeSmall(mask,w,h,minA){ const out=Uint8Array.from(mask), vis=new Uint8Array(w*h);
+  for(let s=0;s<w*h;s++){ if(mask[s]&&!vis[s]){ const comp=[s],st=[s]; vis[s]=1;
+    while(st.length){ const i=st.pop(),x=i%w,y=(i/w)|0; const nb=[];
+      if(x>0)nb.push(i-1); if(x<w-1)nb.push(i+1); if(y>0)nb.push(i-w); if(y<h-1)nb.push(i+w);
+      for(const j of nb) if(mask[j]&&!vis[j]){ vis[j]=1; st.push(j); comp.push(j); } }
+    if(comp.length<minA) for(const i of comp) out[i]=0; } } return out; }
 
-// ---- wall extrusion from the chroma-key mask ----
-function buildWalls(){
-  if(!srcCtx) return;
-  while(wallGroup.children.length) wallGroup.remove(wallGroup.children[0]);
-  const longCells = 220;
-  let cols, rows;
-  if(state.aspect >= 1){ cols = longCells; rows = Math.max(1, Math.round(longCells/state.aspect)); }
-  else { rows = longCells; cols = Math.max(1, Math.round(longCells*state.aspect)); }
-  const gc = document.createElement('canvas'); gc.width = cols; gc.height = rows;
-  const gx = gc.getContext('2d', {willReadFrequently:true});
-  gx.drawImage(srcCanvas, 0, 0, cols, rows);
-  const data = gx.getImageData(0,0,cols,rows).data;
-  const occ = new Uint8Array(cols*rows);
-  for(let i=0;i<cols*rows;i++){
-    const o=i*4;
-    if(data[o+3] < 128){ occ[i]=0; continue; }
-    const r=srgb2lin(data[o]/255), g=srgb2lin(data[o+1]/255), b=srgb2lin(data[o+2]/255);
-    occ[i] = Math.hypot(r-keyColorLinear.r, g-keyColorLinear.g, b-keyColorLinear.b) > keyThresh ? 1 : 0;
+const WALLCOL=(()=>{ const c=new THREE.Color().setRGB(190/255,200/255,212/255,THREE.SRGBColorSpace); return [c.r,c.g,c.b]; })();
+const OBJDEF=(()=>{ const c=new THREE.Color().setRGB(150/255,158/255,168/255,THREE.SRGBColorSpace); return [c.r,c.g,c.b]; })();
+
+function meshFromGrid(occ,cols,rows,colorFn){
+  const aspect=state.aspect,u0=state.originU,v0=state.originV;
+  const X=c=>(c/cols-u0)*aspect, Z=r=>(r/rows-v0), at=(c,r)=>(c<0||r<0||c>=cols||r>=rows)?0:occ[r*cols+c];
+  const pos=[],col=[];
+  const push=(p,b)=>{ const t=0.42+0.58*p[1]; pos.push(p[0],p[1],p[2]); col.push(b[0]*t,b[1]*t,b[2]*t); };
+  const tri=(a,b,c,bs)=>{ push(a,bs); push(b,bs); push(c,bs); };
+  const quad=(a,b,c,d,bs)=>{ tri(a,b,c,bs); tri(a,c,d,bs); };
+  for(let r=0;r<rows;r++) for(let c=0;c<cols;c++){ if(!occ[r*cols+c]) continue;
+    const bs=colorFn(c,r); const x0=X(c),x1=X(c+1),z0=Z(r),z1=Z(r+1);
+    if(!at(c-1,r)) quad([x0,0,z0],[x0,1,z0],[x0,1,z1],[x0,0,z1],bs);
+    if(!at(c+1,r)) quad([x1,0,z1],[x1,1,z1],[x1,1,z0],[x1,0,z0],bs);
+    if(!at(c,r-1)) quad([x1,0,z0],[x1,1,z0],[x0,1,z0],[x0,0,z0],bs);
+    if(!at(c,r+1)) quad([x0,0,z1],[x0,1,z1],[x1,1,z1],[x1,0,z1],bs);
+    quad([x0,1,z0],[x1,1,z0],[x1,1,z1],[x0,1,z1],bs);
   }
-  const at = (c,r)=> (c<0||r<0||c>=cols||r>=rows) ? 0 : occ[r*cols+c];
-  const aspect=state.aspect, u0=state.originU, v0=state.originV;
-  const X=c=>(c/cols - u0)*aspect, Z=r=>(r/rows - v0);
-  const pos=[], col=[], base=new THREE.Color(0x8ea3b8);
-  const shade=y=>{ const t=0.5+0.5*y; return [base.r*t, base.g*t, base.b*t]; };
-  const tri=(p,q,r)=>{ pos.push(p[0],p[1],p[2], q[0],q[1],q[2], r[0],r[1],r[2]);
-    col.push(...shade(p[1]),...shade(q[1]),...shade(r[1])); };
-  const quad=(a,b,c,d)=>{ tri(a,b,c); tri(a,c,d); };
-  for(let r=0;r<rows;r++) for(let c=0;c<cols;c++){
-    if(!occ[r*cols+c]) continue;
-    const x0=X(c),x1=X(c+1),z0=Z(r),z1=Z(r+1);
-    if(!at(c-1,r)) quad([x0,0,z0],[x0,1,z0],[x0,1,z1],[x0,0,z1]);
-    if(!at(c+1,r)) quad([x1,0,z1],[x1,1,z1],[x1,1,z0],[x1,0,z0]);
-    if(!at(c,r-1)) quad([x1,0,z0],[x1,1,z0],[x0,1,z0],[x0,0,z0]);
-    if(!at(c,r+1)) quad([x0,0,z1],[x0,1,z1],[x1,1,z1],[x1,0,z1]);
-    quad([x0,1,z0],[x1,1,z0],[x1,1,z1],[x0,1,z1]); // top cap
-  }
-  const geo = new THREE.BufferGeometry();
-  geo.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
-  geo.setAttribute('color', new THREE.Float32BufferAttribute(col, 3));
-  const mat = new THREE.MeshBasicMaterial({ vertexColors:true, side:THREE.DoubleSide, toneMapped:false });
-  wallGroup.add(new THREE.Mesh(geo, mat));
-  wallGroup.scale.set(1, wallHeightM / userScale, 1);
-  wallsBuilt = true;
-}
-function setWalls(on){
-  wallsWanted = on;
-  if(on && !wallsBuilt) buildWalls();
-  if(wallGroup) wallGroup.visible = on;
-  hudDirty = true;
-}
-function setKey(on){
-  keyEnabled = on;
-  if(planeMat && planeMat.userData.shader) planeMat.userData.shader.uniforms.uKeyEnabled.value = on?1:0;
-  hudDirty = true;
+  if(!pos.length) return null;
+  const g=new THREE.BufferGeometry();
+  g.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));
+  g.setAttribute('color',new THREE.Float32BufferAttribute(col,3));
+  return new THREE.Mesh(g,new THREE.MeshBasicMaterial({vertexColors:true,side:THREE.DoubleSide,toneMapped:false}));
 }
 
-// ---- input + reticle ----
-const _p=new THREE.Vector3(), _d=new THREE.Vector3(), _q=new THREE.Quaternion();
+function buildStructure(){
+  if(!srcCanvas) return;
+  while(wallSub.children.length) wallSub.remove(wallSub.children[0]);
+  while(objSub.children.length) objSub.remove(objSub.children[0]);
+  const W=900, H=Math.max(1,Math.round(W/state.aspect));
+  const pc=document.createElement('canvas'); pc.width=W; pc.height=H;
+  const ctx=pc.getContext('2d',{willReadFrequently:true}); ctx.drawImage(srcCanvas,0,0,W,H);
+  const d=ctx.getImageData(0,0,W,H).data, N=W*H;
+  const floor=new Uint8Array(N), dark=new Uint8Array(N), fc=floorColorSRGB;
+  for(let i=0;i<N;i++){ const o=i*4, R=d[o],Gc=d[o+1],B=d[o+2];
+    dark[i]=(0.299*R+0.587*Gc+0.114*B)<58?1:0;
+    const dr=R-fc.r,dg=Gc-fc.g,db=B-fc.b; floor[i]=(dr*dr+dg*dg+db*db)<4900?1:0; }
+  const F=fillHoles(closing(floor,W,H,6),W,H);
+  const walls=opening(and2(dark,dilate(F,W,H,6)),W,H,2);
+  let obj=and3(F,notM(floor),notM(dark)); obj=and2(obj,notM(dilate(walls,W,H,1)));
+  obj=opening(obj,W,H,1); obj=removeSmall(obj,W,H,28);
+  // downsample to mesh grid
+  const gl=300; let gc,gr; if(state.aspect>=1){ gc=gl; gr=Math.max(1,Math.round(gl/state.aspect)); } else { gr=gl; gc=Math.max(1,Math.round(gl*state.aspect)); }
+  const down=m=>{ const occ=new Uint8Array(gc*gr); for(let r=0;r<gr;r++) for(let c=0;c<gc;c++){
+      const x0=(c*W/gc)|0,x1=((c+1)*W/gc)|0,y0=(r*H/gr)|0,y1=((r+1)*H/gr)|0; let cnt=0,tot=0;
+      for(let y=y0;y<y1;y++) for(let x=x0;x<x1;x++){ tot++; cnt+=m[y*W+x]; }
+      occ[r*gc+c]=(tot&&cnt/tot>0.30)?1:0; } return occ; };
+  const occW=down(walls), occO0=down(obj);
+  const occO=new Uint8Array(gc*gr); for(let i=0;i<gc*gr;i++) occO[i]=(occO0[i]&&!occW[i])?1:0; // walls win
+  // per-cell object color from source
+  const cellCol=new Array(gc*gr);
+  for(let r=0;r<gr;r++) for(let c=0;c<gc;c++){ if(!occO[r*gc+c]) continue;
+    const x0=(c*W/gc)|0,x1=((c+1)*W/gc)|0,y0=(r*H/gr)|0,y1=((r+1)*H/gr)|0; let R=0,G=0,B=0,n=0;
+    for(let y=y0;y<y1;y++) for(let x=x0;x<x1;x++){ if(!obj[y*W+x]) continue; const o=(y*W+x)*4; R+=d[o];G+=d[o+1];B+=d[o+2];n++; }
+    cellCol[r*gc+c]= n? [srgb2lin(R/n/255),srgb2lin(G/n/255),srgb2lin(B/n/255)] : OBJDEF; }
+  const wm=meshFromGrid(occW,gc,gr,()=>WALLCOL);
+  const om=meshFromGrid(occO,gc,gr,(c,r)=>cellCol[r*gc+c]||OBJDEF);
+  if(wm) wallSub.add(wm); if(om) objSub.add(om);
+  applyTransform(); structureBuilt=true;
+}
+function setWalls(on){ wallsWanted=on; if(on&&!structureBuilt) buildStructure();
+  if(wallSub) wallSub.visible=on; if(objSub) objSub.visible=on; hudDirty=true; }
+function setKey(on){ keyEnabled=on; if(planeMat&&planeMat.userData.shader) planeMat.userData.shader.uniforms.uKeyEnabled.value=on?1:0; hudDirty=true; }
+
+// ---------- input + reticle ----------
+const _p=new THREE.Vector3(),_d=new THREE.Vector3(),_q=new THREE.Quaternion();
 function updateReticle(ctrl){
   if(!ctrl){ reticle.visible=false; pointer.visible=false; return; }
-  ctrl.getWorldPosition(_p); ctrl.getWorldQuaternion(_q);
-  _d.set(0,0,-1).applyQuaternion(_q);
-  if(_d.y >= -1e-4){ reticle.visible=false; pointer.visible=false; return; }
-  const t = (FLOOR_Y - _p.y) / _d.y;
-  if(t <= 0){ reticle.visible=false; pointer.visible=false; return; }
-  reticle.position.copy(_p).addScaledVector(_d, t); reticle.position.y = FLOOR_Y + 0.002;
-  reticle.visible = !locked;
-  pointer.position.copy(_p); pointer.quaternion.copy(_q);
-  pointer.scale.z = Math.min(t/5, 1.0) || 1; pointer.visible = !locked;
+  ctrl.getWorldPosition(_p); ctrl.getWorldQuaternion(_q); _d.set(0,0,-1).applyQuaternion(_q);
+  if(_d.y>=-1e-4){ reticle.visible=false; pointer.visible=false; return; }
+  const t=(FLOOR_Y-_p.y)/_d.y; if(t<=0){ reticle.visible=false; pointer.visible=false; return; }
+  reticle.position.copy(_p).addScaledVector(_d,t); reticle.position.y=FLOOR_Y+0.002; reticle.visible=!locked;
+  pointer.position.copy(_p); pointer.quaternion.copy(_q); pointer.scale.z=Math.min(t/5,1.0)||1; pointer.visible=!locked;
 }
-function getController(hand){
-  if(ctrlRight && ctrlRight.userData.handedness===hand) return ctrlRight;
-  if(ctrlLeft  && ctrlLeft.userData.handedness===hand) return ctrlLeft;
-  return null;
-}
-function getGamepad(hand){
-  const s = renderer.xr.getSession(); if(!s) return null;
-  for(const src of s.inputSources) if(src.handedness===hand && src.gamepad) return src.gamepad;
-  return null;
-}
+function getController(h){ if(ctrlRight&&ctrlRight.userData.handedness===h) return ctrlRight; if(ctrlLeft&&ctrlLeft.userData.handedness===h) return ctrlLeft; return null; }
+function getGamepad(h){ const s=renderer.xr.getSession(); if(!s) return null; for(const src of s.inputSources) if(src.handedness===h&&src.gamepad) return src.gamepad; return null; }
 const DZ=0.16, dz=v=>Math.abs(v)<DZ?0:(v-Math.sign(v)*DZ)/(1-DZ);
 
 function onFrame(t){
-  const dt = lastT ? Math.min((t-lastT)/1000, 0.05) : 0.016; lastT = t;
+  const dt=lastT?Math.min((t-lastT)/1000,0.05):0.016; lastT=t;
   updateReticle(getController('right'));
-  const right = getGamepad('right'), left = getGamepad('left');
-
-  if(!locked && right && right.axes.length>=4){
-    const rx=dz(right.axes[2]), ry=dz(right.axes[3]);
-    if(rx){ userRotation -= rx*dt*1.6; hudDirty=true; }
-    if(ry){ userScale = THREE.MathUtils.clamp(userScale*Math.exp(-ry*dt*0.9), 0.05, 80); hudDirty=true; }
-    if(rx||ry) applyTransform();
-  }
-  if(left && left.axes.length>=4){            // opacity — always, even locked
-    const ly=dz(left.axes[3]);
-    if(ly){ opacity = THREE.MathUtils.clamp(opacity - ly*dt*0.8, 0.08, 1); planeMat.opacity = opacity; hudDirty=true; }
-  }
-  if(right){
-    const a=!!(right.buttons[4]&&right.buttons[4].pressed), b=!!(right.buttons[5]&&right.buttons[5].pressed);
+  const right=getGamepad('right'), left=getGamepad('left');
+  if(!locked&&right&&right.axes.length>=4){ const rx=dz(right.axes[2]),ry=dz(right.axes[3]);
+    if(rx){ userRotation-=rx*dt*1.6; hudDirty=true; } if(ry){ userScale=THREE.MathUtils.clamp(userScale*Math.exp(-ry*dt*0.9),0.05,120); hudDirty=true; }
+    if(rx||ry) applyTransform(); }
+  if(left&&left.axes.length>=4){ const ly=dz(left.axes[3]); if(ly){ opacity=THREE.MathUtils.clamp(opacity-ly*dt*0.8,0.08,1); planeMat.opacity=opacity; hudDirty=true; } }
+  if(right){ const a=!!(right.buttons[4]&&right.buttons[4].pressed), b=!!(right.buttons[5]&&right.buttons[5].pressed);
     if(a&&!prevBtn.a){ locked=!locked; hudDirty=true; }
-    if(b&&!prevBtn.b){ userRotation=0; userScale=state.realWidth?state.realWidth/state.aspect:3; applyTransform(); }
-    prevBtn.a=a; prevBtn.b=b;
-  }
-  if(left){
-    const x=!!(left.buttons[4]&&left.buttons[4].pressed), y=!!(left.buttons[5]&&left.buttons[5].pressed);
-    if(x&&!prevBtn.x) setKey(!keyEnabled);
-    if(y&&!prevBtn.y) setWalls(!wallsWanted);
-    prevBtn.x=x; prevBtn.y=y;
-  }
-  updateHUD();
-  renderer.render(scene, camera);
+    if(b&&!prevBtn.b){ if(occlSupported){ occlEnabled=!occlEnabled; } else { flash='depth occlusion not enabled'; } hudDirty=true; }
+    prevBtn.a=a; prevBtn.b=b; }
+  if(left){ const x=!!(left.buttons[4]&&left.buttons[4].pressed), y=!!(left.buttons[5]&&left.buttons[5].pressed);
+    if(x&&!prevBtn.x) setKey(!keyEnabled); if(y&&!prevBtn.y) setWalls(!wallsWanted); prevBtn.x=x; prevBtn.y=y; }
+  if(occlSupported){ const dm=renderer.xr.getDepthSensingMesh&&renderer.xr.getDepthSensingMesh(); if(dm) dm.visible=occlEnabled; }
+  updateHUD(); renderer.render(scene,camera);
 }
 
-const _cp=new THREE.Vector3(), _cq=new THREE.Quaternion(), _fw=new THREE.Vector3();
+const _cp=new THREE.Vector3(),_cq=new THREE.Quaternion(),_fw=new THREE.Vector3();
 function updateHUD(){
   if(hudDirty) drawHUD();
-  const cam = renderer.xr.getCamera();
-  cam.getWorldPosition(_cp); cam.getWorldQuaternion(_cq);
+  const cam=renderer.xr.getCamera(); cam.getWorldPosition(_cp); cam.getWorldQuaternion(_cq);
   _fw.set(0,0,-1).applyQuaternion(_cq); _fw.y=0; if(_fw.lengthSq()<1e-5) _fw.set(0,0,-1); _fw.normalize();
-  hud.position.copy(_cp).addScaledVector(_fw, 0.55); hud.position.y -= 0.30;
-  hud.quaternion.copy(_cq);
+  hud.position.copy(_cp).addScaledVector(_fw,0.40); hud.position.y+=0.60;   // above the head
+  hud.lookAt(_cp);
 }
 function drawHUD(){
-  hudDirty=false; const c=hudCtx, W=hudCanvas.width, H=hudCanvas.height;
-  c.clearRect(0,0,W,H);
+  hudDirty=false; const c=hudCtx,W=hudCanvas.width,H=hudCanvas.height; c.clearRect(0,0,W,H);
   c.fillStyle='rgba(11,22,34,0.82)'; rr(c,0,0,W,H,18); c.fill();
-  c.strokeStyle = locked?'#5cd6a5':'#1f4263'; c.lineWidth=3; rr(c,1.5,1.5,W-3,H-3,17); c.stroke();
+  c.strokeStyle=locked?'#5cd6a5':'#1f4263'; c.lineWidth=3; rr(c,1.5,1.5,W-3,H-3,17); c.stroke();
   const widthM=state.aspect*userScale, depthM=userScale, deg=((userRotation*180/Math.PI)%360+360)%360;
-  c.fillStyle='#ffffff'; c.font='600 46px ui-monospace,Menlo,monospace';
-  c.fillText(`${widthM.toFixed(2)} × ${depthM.toFixed(2)} m`, 26, 60);
-  c.fillStyle='#9fb2c6'; c.font='500 25px ui-monospace,Menlo,monospace';
-  c.fillText(`rotation ${deg.toFixed(0)}\u00B0    opacity ${(opacity*100).toFixed(0)}%`, 26, 100);
+  c.fillStyle='#ffffff'; c.font='600 46px ui-monospace,Menlo,monospace'; c.fillText(`${widthM.toFixed(2)} × ${depthM.toFixed(2)} m`,26,60);
+  c.fillStyle='#9fb2c6'; c.font='500 25px ui-monospace,Menlo,monospace'; c.fillText(`rotation ${deg.toFixed(0)}\u00B0    opacity ${(opacity*100).toFixed(0)}%`,26,100);
   c.font='700 23px ui-monospace,Menlo,monospace';
-  if(locked){ c.fillStyle='#5cd6a5'; c.fillText('\u25CF LOCKED  (opacity still live)', 26, 142); }
-  else if(!placed){ c.fillStyle='#ffb703'; c.fillText('point at floor \u00B7 trigger to place', 26, 142); }
-  else { c.fillStyle='#4cc9f0'; c.fillText('live \u00B7 stick: rotate / scale', 26, 142); }
+  if(locked){ c.fillStyle='#5cd6a5'; c.fillText('\u25CF LOCKED  (opacity still live)',26,142); }
+  else if(!placed){ c.fillStyle='#ffb703'; c.fillText('point at floor \u00B7 trigger to place',26,142); }
+  else { c.fillStyle='#4cc9f0'; c.fillText('live \u00B7 stick: rotate / scale',26,142); }
   c.font='500 22px ui-monospace,Menlo,monospace'; c.fillStyle='#9fb2c6';
-  const flags = `bg ${keyEnabled?'on':'off'}   walls ${wallsWanted?'on':'off'}   occl ${occlActive?'on':'\u2014'}`;
-  c.fillText(flags, 26, 182);
-  c.font='400 20px ui-monospace,Menlo,monospace'; c.fillStyle='#6f8499';
-  c.fillText('trig place \u00B7 A lock \u00B7 B reset \u00B7 Lstick opacity \u00B7 X bg \u00B7 Y walls', 26, 222);
-  hudTex.needsUpdate = true;
+  c.fillText(`bg ${keyEnabled?'on':'off'}   walls ${wallsWanted?'on':'off'}   occl ${occlSupported?(occlEnabled?'on':'off'):'\u2014'}`,26,182);
+  c.font='400 20px ui-monospace,Menlo,monospace'; c.fillStyle=flash?'#ffb703':'#6f8499';
+  c.fillText(flash||'trig place \u00B7 A lock \u00B7 B occl \u00B7 Lstick opacity \u00B7 X bg \u00B7 Y walls',26,222);
+  flash=''; hudTex.needsUpdate=true;
 }
-function rr(ctx,x,y,w,h,r){ ctx.beginPath(); ctx.moveTo(x+r,y);
-  ctx.arcTo(x+w,y,x+w,y+h,r); ctx.arcTo(x+w,y+h,x,y+h,r); ctx.arcTo(x,y+h,x,y,r); ctx.arcTo(x,y,x+w,y,r); ctx.closePath(); }
-
-function cleanup(){
-  renderer.setAnimationLoop(null);
-  if(renderer.domElement && renderer.domElement.parentNode) renderer.domElement.parentNode.removeChild(renderer.domElement);
-  placed=false; locked=false; lastT=0; wallsBuilt=false;
-  setStatus('session ended — ready to re-enter', true);
-}
-window.addEventListener('resize', ()=>{ if(!renderer) return;
-  camera.aspect = window.innerWidth/window.innerHeight; camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth, window.innerHeight); });
+function rr(ctx,x,y,w,h,r){ ctx.beginPath(); ctx.moveTo(x+r,y); ctx.arcTo(x+w,y,x+w,y+h,r); ctx.arcTo(x+w,y+h,x,y+h,r); ctx.arcTo(x,y+h,x,y,r); ctx.arcTo(x,y,x+w,y,r); ctx.closePath(); }
+function cleanup(){ renderer.setAnimationLoop(null);
+  if(renderer.domElement&&renderer.domElement.parentNode) renderer.domElement.parentNode.removeChild(renderer.domElement);
+  placed=false; locked=false; lastT=0; structureBuilt=false; setStatus('session ended — ready to re-enter',true); }
+window.addEventListener('resize',()=>{ if(!renderer) return; camera.aspect=window.innerWidth/window.innerHeight;
+  camera.updateProjectionMatrix(); renderer.setSize(window.innerWidth,window.innerHeight); });
 </script>
 </body>
 </html>
