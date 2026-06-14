@@ -6,17 +6,9 @@
 <title>Floor Plan AR — Quest 3</title>
 <style>
   :root{
-    --bg:#0b1622;            /* blueprint navy */
-    --grid:#16314a;          /* faint grid line */
-    --grid-strong:#1f4263;   /* major grid line */
-    --paper:#e9eef3;         /* drafting paper */
-    --ink:#0d1b2a;
-    --line:#4cc9f0;          /* drafting cyan accent */
-    --datum:#ffb703;         /* origin / corner marker */
-    --text:#cdd9e5;
-    --text-dim:#7e93a8;
-    --ok:#5cd6a5;
-    --warn:#ff7b6b;
+    --bg:#0b1622; --grid:#16314a; --grid-strong:#1f4263;
+    --paper:#e9eef3; --ink:#0d1b2a; --line:#4cc9f0; --datum:#ffb703;
+    --text:#cdd9e5; --text-dim:#7e93a8; --ok:#5cd6a5; --warn:#ff7b6b;
     --mono:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
     --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
   }
@@ -27,102 +19,74 @@
       linear-gradient(transparent 0,transparent calc(100% - 1px),var(--grid) 100%) 0 0/100% 28px,
       linear-gradient(90deg,transparent 0,transparent calc(100% - 1px),var(--grid) 100%) 0 0/28px 100%,
       var(--bg);
-    color:var(--text);
-    font-family:var(--sans);
-    -webkit-font-smoothing:antialiased;
-    min-height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:flex-start;
+    color:var(--text);font-family:var(--sans);-webkit-font-smoothing:antialiased;
+    min-height:100vh;display:flex;justify-content:center;align-items:flex-start;
     padding:clamp(16px,4vw,48px);
   }
-  .sheet{
-    width:100%;
-    max-width:760px;
+  .sheet{width:100%;max-width:760px;
     background:linear-gradient(180deg,rgba(20,40,62,.55),rgba(11,22,34,.55));
-    border:1px solid var(--grid-strong);
-    border-radius:4px;
-    box-shadow:0 24px 60px -20px rgba(0,0,0,.6);
-    overflow:hidden;
-  }
-  header{
-    padding:22px 26px 18px;
-    border-bottom:1px solid var(--grid-strong);
-    display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap;
-  }
+    border:1px solid var(--grid-strong);border-radius:4px;
+    box-shadow:0 24px 60px -20px rgba(0,0,0,.6);overflow:hidden;}
+  header{padding:22px 26px 18px;border-bottom:1px solid var(--grid-strong);
+    display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap;}
   .title{display:flex;flex-direction:column;gap:4px}
-  .eyebrow{
-    font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;
-    color:var(--line);
-  }
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--line);}
   h1{margin:0;font-size:clamp(20px,3.4vw,26px);font-weight:650;letter-spacing:-.01em;color:#fff}
   .status{font-family:var(--mono);font-size:12px;color:var(--text-dim);white-space:nowrap}
-  .status b{color:var(--ok)}
-  .status.bad b{color:var(--warn)}
+  .status b{color:var(--ok)} .status.bad b{color:var(--warn)}
   .body{padding:22px 26px 26px;display:grid;gap:22px}
-
-  /* ---- step labels ---- */
   .step{display:grid;gap:12px}
   .step-head{display:flex;align-items:center;gap:10px}
-  .num{
-    font-family:var(--mono);font-size:11px;color:var(--ink);background:var(--line);
-    width:20px;height:20px;border-radius:3px;display:grid;place-items:center;font-weight:700;flex:none;
-  }
+  .num{font-family:var(--mono);font-size:11px;color:var(--ink);background:var(--line);
+    width:20px;height:20px;border-radius:3px;display:grid;place-items:center;font-weight:700;flex:none;}
   .step-head h2{margin:0;font-size:14px;font-weight:600;letter-spacing:.01em}
   .step-head .sub{font-size:13px;color:var(--text-dim);margin-left:2px}
-
-  /* ---- dropzone ---- */
-  .drop{
-    border:1.5px dashed var(--grid-strong);border-radius:4px;padding:24px;text-align:center;
-    cursor:pointer;transition:border-color .15s,background .15s;color:var(--text-dim);
-    font-size:14px;
-  }
+  .drop{border:1.5px dashed var(--grid-strong);border-radius:4px;padding:24px;text-align:center;
+    cursor:pointer;transition:border-color .15s,background .15s;color:var(--text-dim);font-size:14px;}
   .drop:hover,.drop.drag{border-color:var(--line);background:rgba(76,201,240,.06);color:var(--text)}
-  .drop b{color:var(--text)}
-  .drop input{display:none}
-
-  /* ---- plan preview ---- */
+  .drop b{color:var(--text)} .drop input{display:none}
   .preview{position:relative;display:none;border:1px solid var(--grid-strong);border-radius:4px;background:#0a131d;overflow:hidden}
   .preview.show{display:block}
   .preview canvas{display:block;width:100%;height:auto;cursor:crosshair}
-  .hint{
-    position:absolute;left:10px;bottom:10px;font-family:var(--mono);font-size:11px;
+  .preview.pick canvas{cursor:cell}
+  .hint{position:absolute;left:10px;bottom:10px;font-family:var(--mono);font-size:11px;
     background:rgba(11,22,34,.82);color:var(--text);padding:6px 9px;border-radius:3px;
-    border:1px solid var(--grid-strong);pointer-events:none;letter-spacing:.02em;
-  }
+    border:1px solid var(--grid-strong);pointer-events:none;letter-spacing:.02em;}
   .hint .dot{color:var(--datum)}
-
-  /* ---- scale field ---- */
   .field{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
   .field label{font-size:13px;color:var(--text-dim)}
-  .field input[type=number]{
-    width:120px;background:#0a131d;border:1px solid var(--grid-strong);border-radius:3px;
-    color:var(--text);font-family:var(--mono);font-size:14px;padding:9px 11px;
-  }
+  .field input[type=number]{width:120px;background:#0a131d;border:1px solid var(--grid-strong);border-radius:3px;
+    color:var(--text);font-family:var(--mono);font-size:14px;padding:9px 11px;}
   .field input:focus{outline:none;border-color:var(--line)}
   .field .unit{font-family:var(--mono);font-size:13px;color:var(--text-dim)}
   .field .note{font-size:12px;color:var(--text-dim);flex-basis:100%}
-
-  /* ---- enter button ---- */
-  .go{
-    margin-top:4px;width:100%;padding:15px;border:none;border-radius:4px;cursor:pointer;
+  /* toggles */
+  .toggle{display:flex;align-items:flex-start;gap:11px;font-size:13px;color:var(--text);cursor:pointer;line-height:1.45}
+  .toggle input{margin:2px 0 0;width:16px;height:16px;accent-color:var(--line);flex:none}
+  .toggle .lbl b{font-weight:600}
+  .toggle .lbl small{display:block;color:var(--text-dim);font-size:12px}
+  .flag{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--datum);border:1px solid var(--datum);border-radius:3px;padding:1px 5px;margin-left:6px;vertical-align:1px}
+  .sub-ctl{margin:8px 0 0 27px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .swatch{width:26px;height:26px;border-radius:4px;border:1px solid var(--grid-strong);background:#fff;flex:none}
+  .mini{font-family:var(--mono);font-size:12px;background:#0a131d;border:1px solid var(--grid-strong);
+    color:var(--text);border-radius:3px;padding:7px 11px;cursor:pointer}
+  .mini:hover{border-color:var(--line)}
+  .mini.active{border-color:var(--datum);color:var(--datum)}
+  input[type=range]{accent-color:var(--line);flex:1;min-width:140px}
+  .rng-val{font-family:var(--mono);font-size:12px;color:var(--text-dim);min-width:34px;text-align:right}
+  .go{margin-top:4px;width:100%;padding:15px;border:none;border-radius:4px;cursor:pointer;
     background:var(--line);color:var(--ink);font-family:var(--mono);font-size:14px;font-weight:700;
-    letter-spacing:.06em;text-transform:uppercase;transition:filter .15s,opacity .15s;
-  }
+    letter-spacing:.06em;text-transform:uppercase;transition:filter .15s,opacity .15s;}
   .go:hover{filter:brightness(1.08)}
   .go:disabled{opacity:.4;cursor:not-allowed;background:var(--grid-strong);color:var(--text-dim)}
-
-  .controls-ref{
-    border-top:1px solid var(--grid-strong);padding-top:16px;display:grid;gap:7px;
-    font-size:13px;color:var(--text-dim);
-  }
+  .controls-ref{border-top:1px solid var(--grid-strong);padding-top:16px;display:grid;gap:7px;
+    font-size:13px;color:var(--text-dim);}
   .controls-ref h3{margin:0 0 2px;font-family:var(--mono);font-size:11px;letter-spacing:.18em;
     text-transform:uppercase;color:var(--text-dim)}
   .controls-ref .row{display:flex;gap:10px}
-  .controls-ref kbd{
-    font-family:var(--mono);font-size:11px;background:#0a131d;border:1px solid var(--grid-strong);
-    border-radius:3px;padding:2px 7px;color:var(--text);white-space:nowrap;flex:none;min-width:108px;text-align:center;
-  }
+  .controls-ref kbd{font-family:var(--mono);font-size:11px;background:#0a131d;border:1px solid var(--grid-strong);
+    border-radius:3px;padding:2px 7px;color:var(--text);white-space:nowrap;flex:none;min-width:112px;text-align:center;}
   .controls-ref .row span{padding-top:1px}
   footer{padding:14px 26px;border-top:1px solid var(--grid-strong);font-size:12px;color:var(--text-dim);font-family:var(--mono)}
   a{color:var(--line)}
@@ -131,15 +95,11 @@
 <body>
   <div class="sheet">
     <header>
-      <div class="title">
-        <span class="eyebrow">Mixed Reality · Datum Overlay</span>
-        <h1>Floor Plan AR</h1>
-      </div>
+      <div class="title"><span class="eyebrow">Mixed Reality · Datum Overlay</span><h1>Floor Plan AR</h1></div>
       <div class="status" id="status">checking headset…</div>
     </header>
 
     <div class="body">
-      <!-- STEP 1 -->
       <section class="step">
         <div class="step-head"><span class="num">1</span><h2>Load your floor plan</h2></div>
         <label class="drop" id="drop">
@@ -149,20 +109,37 @@
         </label>
       </section>
 
-      <!-- STEP 2 -->
       <section class="step" id="step2" style="display:none">
         <div class="step-head"><span class="num">2</span><h2>Mark the origin corner</h2>
           <span class="sub">the point you'll match to a real corner</span></div>
         <div class="preview show" id="preview">
           <canvas id="planCanvas"></canvas>
-          <div class="hint">tap the <span class="dot">◈</span> corner of the plan to set the datum</div>
+          <div class="hint" id="previewHint">tap the <span class="dot">◈</span> corner of the plan to set the datum</div>
         </div>
       </section>
 
-      <!-- STEP 3 -->
       <section class="step" id="step3" style="display:none">
-        <div class="step-head"><span class="num">3</span><h2>Set a starting scale</h2>
-          <span class="sub">optional — you can fine-tune in headset</span></div>
+        <div class="step-head"><span class="num">3</span><h2>Make the background see-through</h2>
+          <span class="sub">so your real floor & objects show through</span></div>
+        <label class="toggle">
+          <input type="checkbox" id="keyOn" checked />
+          <span class="lbl"><b>Knock out the background color</b>
+            <small>Only the plan's lines/walls draw; everything matching the picked color becomes transparent.</small></span>
+        </label>
+        <div class="sub-ctl">
+          <div class="swatch" id="swatch"></div>
+          <button class="mini" id="sampleBtn">Sample color from plan</button>
+        </div>
+        <div class="sub-ctl">
+          <span style="font-size:12px;color:var(--text-dim);min-width:64px">tolerance</span>
+          <input type="range" id="thresh" min="0.05" max="0.9" step="0.01" value="0.35" />
+          <span class="rng-val" id="threshVal">0.35</span>
+        </div>
+      </section>
+
+      <section class="step" id="step4" style="display:none">
+        <div class="step-head"><span class="num">4</span><h2>Set a starting scale</h2>
+          <span class="sub">optional — fine-tune in headset</span></div>
         <div class="field">
           <label for="width">Real width of the image</label>
           <input type="number" id="width" min="0" step="0.01" placeholder="e.g. 9.5" />
@@ -171,68 +148,96 @@
         </div>
       </section>
 
+      <section class="step" id="step5" style="display:none">
+        <div class="step-head"><span class="num">5</span><h2>3D & passthrough</h2>
+          <span class="sub">experimental</span></div>
+        <label class="toggle">
+          <input type="checkbox" id="wallsOn" />
+          <span class="lbl"><b>Extrude walls upward<span class="flag">exp</span></b>
+            <small>Lifts everything that isn't background into vertical walls. Cleanest with a walls-only image — text & symbols extrude too.</small></span>
+        </label>
+        <div class="sub-ctl">
+          <label style="font-size:13px;color:var(--text-dim)" for="wallH">wall height</label>
+          <input type="number" id="wallH" min="1" step="0.5" value="9" style="width:84px" />
+          <span class="unit" style="font-family:var(--mono);font-size:13px;color:var(--text-dim)">feet</span>
+        </div>
+        <label class="toggle" style="margin-top:4px">
+          <input type="checkbox" id="occlOn" />
+          <span class="lbl"><b>Real-world occlusion<span class="flag">exp</span></b>
+            <small>Uses Quest 3 depth so real objects can hide virtual ones. Can flicker, and on some browser builds may be unstable — toggle off if anything misbehaves.</small></span>
+        </label>
+      </section>
+
       <button class="go" id="enter" disabled>Enter Mixed Reality</button>
 
       <div class="controls-ref">
         <h3>In-headset controls</h3>
         <div class="row"><kbd>Right Trigger</kbd><span>Place / re-place the plan's origin where you point at the floor</span></div>
-        <div class="row"><kbd>Right Stick ↔</kbd><span>Rotate the plan to line up a wall</span></div>
+        <div class="row"><kbd>Right Stick ↔</kbd><span>Rotate to line up a wall</span></div>
         <div class="row"><kbd>Right Stick ↕</kbd><span>Scale up / down</span></div>
-        <div class="row"><kbd>Left Stick ↕</kbd><span>Adjust opacity</span></div>
-        <div class="row"><kbd>A button</kbd><span>Lock / unlock (stop accidental nudges while you walk)</span></div>
+        <div class="row"><kbd>Left Stick ↕</kbd><span>Opacity (works even when locked)</span></div>
+        <div class="row"><kbd>A button</kbd><span>Lock / unlock rotation & scale</span></div>
         <div class="row"><kbd>B button</kbd><span>Reset rotation & scale</span></div>
+        <div class="row"><kbd>X button</kbd><span>Toggle background transparency</span></div>
+        <div class="row"><kbd>Y button</kbd><span>Toggle wall extrusion</span></div>
       </div>
     </div>
-
-    <footer id="foot">three.js · WebXR immersive-ar</footer>
+    <footer id="foot">three.js · WebXR immersive-ar · depth-sensing (opt-in)</footer>
   </div>
 
 <script type="importmap">
-{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js" } }
+{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js" } }
 </script>
 
 <script type="module">
 import * as THREE from 'three';
 
-// ---------- shared state ----------
-const state = {
-  imageURL: null,
-  imgW: 0, imgH: 0, aspect: 1,
-  originU: 0, originV: 0,        // datum point in normalized image coords (0..1, v from top)
-  realWidth: null,              // meters, optional
-};
+// ============================ shared state ============================
+const state = { imageURL:null, imgW:0, imgH:0, aspect:1, originU:0, originV:0, realWidth:null };
 
-// ---------- 2D setup screen ----------
+// chroma key (linear-space comparison to match three's decoded texture samples)
+let keyEnabled = true;
+let keyThresh  = 0.35;
+let keySoft    = 0.06;
+let keyColorSRGB = {r:255,g:255,b:255};
+let keyColorLinear = new THREE.Color().setRGB(1,1,1, THREE.SRGBColorSpace);
+
+// walls / occlusion flags
+let wallsWanted = false;
+let wallHeightM = 9 * 0.3048;
+let occlWanted  = false;
+
+const srgb2lin = c => c <= 0.04045 ? c/12.92 : Math.pow((c+0.055)/1.055, 2.4);
+
+// ============================ 2D setup screen ============================
 const statusEl = document.getElementById('status');
 const drop = document.getElementById('drop');
 const fileInput = document.getElementById('file');
-const step2 = document.getElementById('step2');
-const step3 = document.getElementById('step3');
+const step2 = document.getElementById('step2'), step3 = document.getElementById('step3');
+const step4 = document.getElementById('step4'), step5 = document.getElementById('step5');
 const preview = document.getElementById('preview');
 const planCanvas = document.getElementById('planCanvas');
 const pctx = planCanvas.getContext('2d');
+const previewHint = document.getElementById('previewHint');
 const enterBtn = document.getElementById('enter');
 const widthInput = document.getElementById('width');
+const keyOn = document.getElementById('keyOn');
+const swatch = document.getElementById('swatch');
+const sampleBtn = document.getElementById('sampleBtn');
+const threshEl = document.getElementById('thresh'), threshVal = document.getElementById('threshVal');
+const wallsOn = document.getElementById('wallsOn'), wallH = document.getElementById('wallH');
+const occlOn = document.getElementById('occlOn');
 
-let planImg = null;
-let drawScale = 1; // canvas-pixel -> image-pixel factor
+let planImg = null, srcCanvas = null, srcCtx = null, pickColorMode = false;
 
-function setStatus(text, ok){
-  statusEl.innerHTML = text;
-  statusEl.classList.toggle('bad', ok === false);
-}
+function setStatus(t, ok){ statusEl.innerHTML = t; statusEl.classList.toggle('bad', ok === false); }
 
-// WebXR support probe
 if (navigator.xr && navigator.xr.isSessionSupported) {
-  navigator.xr.isSessionSupported('immersive-ar').then(sup=>{
-    if (sup) setStatus('headset: <b>ready</b>', true);
-    else setStatus('AR not supported here. Open this page in the <b>Meta Quest Browser</b>.', false);
+  navigator.xr.isSessionSupported('immersive-ar').then(s=>{
+    setStatus(s ? 'headset: <b>ready</b>' : 'AR not supported here. Open in the <b>Meta Quest Browser</b>.', s);
   }).catch(()=> setStatus('couldn’t query AR — open in the Quest Browser', false));
-} else {
-  setStatus('No WebXR. Open this page in the <b>Meta Quest Browser</b>.', false);
-}
+} else setStatus('No WebXR. Open in the <b>Meta Quest Browser</b>.', false);
 
-// file loading (click + drag/drop)
 fileInput.addEventListener('change', e=>{ if(e.target.files[0]) loadImage(e.target.files[0]); });
 ['dragenter','dragover'].forEach(ev=> drop.addEventListener(ev, e=>{e.preventDefault();drop.classList.add('drag');}));
 ['dragleave','drop'].forEach(ev=> drop.addEventListener(ev, e=>{e.preventDefault();drop.classList.remove('drag');}));
@@ -240,22 +245,24 @@ drop.addEventListener('drop', e=>{ const f=e.dataTransfer.files[0]; if(f) loadIm
 
 function loadImage(file){
   if(!file.type.startsWith('image/')){ setStatus('that file isn’t an image', false); return; }
-  // Read as a data: URL rather than a blob: URL. Some hosts (e.g. Claude's
-  // published-artifact sandbox) rewrite blob URLs into a blob-request:// scheme
-  // that their CSP then blocks; data: is allowed everywhere.
   const reader = new FileReader();
   reader.onerror = ()=> setStatus('couldn’t read that file', false);
   reader.onload = ()=>{
-    state.imageURL = reader.result;
+    state.imageURL = reader.result; // data: URL (CSP-safe)
     const img = new Image();
     img.onload = ()=>{
       planImg = img;
-      state.imgW = img.naturalWidth;
-      state.imgH = img.naturalHeight;
+      state.imgW = img.naturalWidth; state.imgH = img.naturalHeight;
       state.aspect = state.imgW / state.imgH;
-      state.originU = 0; state.originV = 0;   // default datum = image top-left
-      step2.style.display = '';
-      step3.style.display = '';
+      state.originU = 0; state.originV = 0;
+      // capped full-res source canvas for sampling + wall mask
+      const cap = 2048; let sw = state.imgW, sh = state.imgH;
+      const sc = Math.min(1, cap / Math.max(sw, sh)); sw = Math.round(sw*sc); sh = Math.round(sh*sc);
+      srcCanvas = document.createElement('canvas'); srcCanvas.width = sw; srcCanvas.height = sh;
+      srcCtx = srcCanvas.getContext('2d', {willReadFrequently:true});
+      srcCtx.drawImage(img, 0, 0, sw, sh);
+      step2.style.display=''; step3.style.display=''; step4.style.display=''; step5.style.display='';
+      autoDetectKey();
       layoutCanvas();
       enterBtn.disabled = false;
     };
@@ -267,9 +274,7 @@ function loadImage(file){
 
 function layoutCanvas(){
   if(!planImg) return;
-  const maxW = preview.clientWidth || 700;
-  const w = Math.min(maxW, planImg.naturalWidth);
-  drawScale = planImg.naturalWidth / w;
+  const w = Math.min(preview.clientWidth || 700, planImg.naturalWidth);
   planCanvas.width = w;
   planCanvas.height = Math.round(w / state.aspect);
   drawPlan();
@@ -279,13 +284,10 @@ window.addEventListener('resize', layoutCanvas);
 function drawPlan(){
   pctx.clearRect(0,0,planCanvas.width,planCanvas.height);
   pctx.drawImage(planImg, 0,0, planCanvas.width, planCanvas.height);
-  // datum marker
-  const x = state.originU * planCanvas.width;
-  const y = state.originV * planCanvas.height;
+  const x = state.originU * planCanvas.width, y = state.originV * planCanvas.height;
   pctx.save();
   pctx.strokeStyle = '#ffb703'; pctx.lineWidth = 2;
-  pctx.beginPath(); pctx.moveTo(x-13,y); pctx.lineTo(x+13,y);
-                    pctx.moveTo(x,y-13); pctx.lineTo(x,y+13); pctx.stroke();
+  pctx.beginPath(); pctx.moveTo(x-13,y); pctx.lineTo(x+13,y); pctx.moveTo(x,y-13); pctx.lineTo(x,y+13); pctx.stroke();
   pctx.beginPath(); pctx.arc(x,y,8,0,Math.PI*2); pctx.stroke();
   pctx.fillStyle = 'rgba(255,183,3,.18)'; pctx.fill();
   pctx.restore();
@@ -293,49 +295,85 @@ function drawPlan(){
 
 planCanvas.addEventListener('click', e=>{
   const r = planCanvas.getBoundingClientRect();
-  const cx = (e.clientX - r.left) * (planCanvas.width / r.width);
-  const cy = (e.clientY - r.top)  * (planCanvas.height / r.height);
-  state.originU = Math.min(1, Math.max(0, cx / planCanvas.width));
-  state.originV = Math.min(1, Math.max(0, cy / planCanvas.height));
-  drawPlan();
+  const u = Math.min(1, Math.max(0, (e.clientX - r.left) / r.width));
+  const v = Math.min(1, Math.max(0, (e.clientY - r.top)  / r.height));
+  if(pickColorMode){
+    const px = Math.floor(u * srcCanvas.width), py = Math.floor(v * srcCanvas.height);
+    const d = srcCtx.getImageData(px, py, 1, 1).data;
+    setKeyColor(d[0], d[1], d[2]);
+    pickColorMode = false; preview.classList.remove('pick'); sampleBtn.classList.remove('active');
+    previewHint.innerHTML = 'tap the <span class="dot">◈</span> corner of the plan to set the datum';
+  } else {
+    state.originU = u; state.originV = v; drawPlan();
+  }
 });
 
-widthInput.addEventListener('input', ()=>{
-  const v = parseFloat(widthInput.value);
-  state.realWidth = (isFinite(v) && v > 0) ? v : null;
-});
+function setKeyColor(r,g,b){
+  keyColorSRGB = {r,g,b};
+  keyColorLinear = new THREE.Color().setRGB(r/255, g/255, b/255, THREE.SRGBColorSpace);
+  swatch.style.background = `rgb(${r},${g},${b})`;
+  if(planeMat && planeMat.userData.shader) planeMat.userData.shader.uniforms.uKeyColor.value.copy(keyColorLinear);
+}
 
+function autoDetectKey(){
+  const n = 80, dc = document.createElement('canvas');
+  dc.width = n; dc.height = Math.max(1, Math.round(n / state.aspect));
+  const dctx = dc.getContext('2d', {willReadFrequently:true});
+  dctx.drawImage(srcCanvas, 0, 0, dc.width, dc.height);
+  const d = dctx.getImageData(0,0,dc.width,dc.height).data;
+  const hist = new Map();
+  for(let i=0;i<d.length;i+=4){
+    if(d[i+3] < 128) continue;
+    const k = ((d[i]>>3)<<10)|((d[i+1]>>3)<<5)|(d[i+2]>>3);
+    hist.set(k, (hist.get(k)||0)+1);
+  }
+  let best=-1, bk=0; for(const [k,v] of hist) if(v>best){ best=v; bk=k; }
+  setKeyColor((((bk>>10)&31)<<3)+4, (((bk>>5)&31)<<3)+4, ((bk&31)<<3)+4);
+}
+
+sampleBtn.addEventListener('click', ()=>{
+  pickColorMode = !pickColorMode;
+  preview.classList.toggle('pick', pickColorMode);
+  sampleBtn.classList.toggle('active', pickColorMode);
+  previewHint.innerHTML = pickColorMode
+    ? 'tap a <b>background</b> area to sample its color'
+    : 'tap the <span class="dot">◈</span> corner of the plan to set the datum';
+});
+keyOn.addEventListener('change', ()=>{ keyEnabled = keyOn.checked; if(planeMat&&planeMat.userData.shader) planeMat.userData.shader.uniforms.uKeyEnabled.value = keyEnabled?1:0; });
+threshEl.addEventListener('input', ()=>{ keyThresh = parseFloat(threshEl.value); threshVal.textContent = keyThresh.toFixed(2);
+  if(planeMat&&planeMat.userData.shader) planeMat.userData.shader.uniforms.uKeyThresh.value = keyThresh; });
+widthInput.addEventListener('input', ()=>{ const v=parseFloat(widthInput.value); state.realWidth=(isFinite(v)&&v>0)?v:null; });
+wallsOn.addEventListener('change', ()=> wallsWanted = wallsOn.checked);
+wallH.addEventListener('input', ()=>{ const v=parseFloat(wallH.value); wallHeightM=(isFinite(v)&&v>0)?v*0.3048:9*0.3048; });
+occlOn.addEventListener('change', ()=> occlWanted = occlOn.checked);
 enterBtn.addEventListener('click', startAR);
 
-// =====================================================================
-//  AR
-// =====================================================================
-let renderer, scene, camera, contentGroup, planeMesh, planeMat, reticle, pointer, hud, hudTex, hudCanvas, hudCtx;
-let placed = false, locked = false;
-let userScale = 3;          // contentGroup scale; plane is `aspect` wide x 1 deep at scale 1
-let userRotation = 0;       // radians about Y
-let opacity = 0.85;
-let lastT = 0;
-let prevButtons = { a:false, b:false };
-let hudDirty = true;
+// ============================ AR ============================
+let renderer, scene, camera, contentGroup, planeMesh, planeMat, wallGroup, reticle, pointer, hud, hudTex, hudCanvas, hudCtx;
+let placed=false, locked=false, wallsBuilt=false, occlActive=false;
+let userScale=3, userRotation=0, opacity=0.85, lastT=0, hudDirty=true;
+let prevBtn = {a:false,b:false,x:false,y:false};
+let ctrlRight, ctrlLeft;
+const FLOOR_Y=0, PLANE_LIFT=0.01;
 
-const FLOOR_Y = 0;          // local-floor reference space -> floor at y=0
-const PLANE_LIFT = 0.01;    // sit just above the real floor
+function buildInit(withDepth){
+  const init = { requiredFeatures:['local-floor'], optionalFeatures:['hit-test','plane-detection','anchors','bounded-floor'] };
+  if(withDepth){ init.optionalFeatures.push('depth-sensing');
+    init.depthSensing = { usagePreference:['gpu-optimized'], dataFormatPreference:['luminance-alpha'] }; }
+  return init;
+}
 
 async function startAR(){
   if(!navigator.xr) return;
   let session;
-  try{
-    session = await navigator.xr.requestSession('immersive-ar', {
-      requiredFeatures: ['local-floor'],
-      optionalFeatures: ['hit-test','plane-detection','anchors','bounded-floor']
-    });
-  }catch(err){
-    setStatus('couldn’t start AR: ' + err.message, false);
-    return;
+  try { session = await navigator.xr.requestSession('immersive-ar', buildInit(occlWanted)); occlActive = occlWanted; }
+  catch(e){
+    if(occlWanted){ try { session = await navigator.xr.requestSession('immersive-ar', buildInit(false)); occlActive=false;
+        setStatus('depth occlusion unavailable — running without it', false); }
+      catch(e2){ setStatus('couldn’t start AR: '+e2.message, false); return; } }
+    else { setStatus('couldn’t start AR: '+e.message, false); return; }
   }
 
-  // renderer
   renderer = new THREE.WebGLRenderer({ antialias:true, alpha:true });
   renderer.setPixelRatio(window.devicePixelRatio);
   renderer.setSize(window.innerWidth, window.innerHeight);
@@ -348,85 +386,76 @@ async function startAR(){
   scene = new THREE.Scene();
   camera = new THREE.PerspectiveCamera(70, window.innerWidth/window.innerHeight, 0.01, 50);
 
-  buildPlane();
-  buildReticle();
-  buildPointer();
-  buildHUD();
+  buildPlane(); buildReticle(); buildPointer(); buildHUD();
 
-  // right-trigger places the plan
-  const c0 = renderer.xr.getController(0);
-  const c1 = renderer.xr.getController(1);
+  const c0 = renderer.xr.getController(0), c1 = renderer.xr.getController(1);
   [c0,c1].forEach(c=>{
     c.addEventListener('connected', e=>{ c.userData.handedness = e.data.handedness; });
     c.addEventListener('select', ()=>{ if(c.userData.handedness === 'right') placeAtReticle(); });
     scene.add(c);
   });
-  ctrlRight = c0; ctrlLeft = c1; // refined per-frame by handedness below
+  ctrlRight = c0; ctrlLeft = c1;
 
+  if(wallsWanted) setWalls(true);
   session.addEventListener('end', cleanup);
   renderer.setAnimationLoop(onFrame);
 }
 
-let ctrlRight, ctrlLeft;
-
 function buildPlane(){
   const tex = new THREE.TextureLoader().load(state.imageURL);
-  tex.colorSpace = THREE.SRGBColorSpace;
-  tex.anisotropy = 8;
-  planeMat = new THREE.MeshBasicMaterial({
-    map: tex, transparent:true, opacity, side:THREE.DoubleSide,
-    toneMapped:false, depthWrite:false
-  });
-  // plane: `aspect` wide (X / image-right), 1 deep (Z / image-down) at scale 1
+  tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = 8;
+  planeMat = new THREE.MeshBasicMaterial({ map:tex, transparent:true, opacity, side:THREE.DoubleSide,
+    toneMapped:false, depthWrite:false, alphaTest:0.02 });
+  planeMat.onBeforeCompile = (sh)=>{
+    sh.uniforms.uKeyColor   = { value: keyColorLinear };
+    sh.uniforms.uKeyThresh  = { value: keyThresh };
+    sh.uniforms.uKeySoft    = { value: keySoft };
+    sh.uniforms.uKeyEnabled = { value: keyEnabled ? 1 : 0 };
+    sh.fragmentShader = 'uniform vec3 uKeyColor;uniform float uKeyThresh;uniform float uKeySoft;uniform float uKeyEnabled;\n' + sh.fragmentShader;
+    sh.fragmentShader = sh.fragmentShader.replace('#include <map_fragment>',
+      `#include <map_fragment>
+       if(uKeyEnabled > 0.5){
+         float kd = distance(sampledDiffuseColor.rgb, uKeyColor);
+         diffuseColor.a *= smoothstep(uKeyThresh, uKeyThresh + uKeySoft, kd);
+       }`);
+    planeMat.userData.shader = sh;
+  };
   planeMesh = new THREE.Mesh(new THREE.PlaneGeometry(state.aspect, 1), planeMat);
-  planeMesh.rotation.x = -Math.PI/2;       // lay flat, texture facing up
+  planeMesh.rotation.x = -Math.PI/2;
+  planeMesh.position.set(-((state.originU-0.5)*state.aspect), 0, (0.5 - state.originV));
 
-  // offset so the chosen datum point sits at the group's pivot (0,0,0)
-  const offX = -((state.originU - 0.5) * state.aspect);
-  const offZ =  (0.5 - state.originV);
-  planeMesh.position.set(offX, 0, offZ);
+  contentGroup = new THREE.Group(); contentGroup.add(planeMesh); contentGroup.visible = false;
+  wallGroup = new THREE.Group(); wallGroup.visible = false; contentGroup.add(wallGroup);
 
-  contentGroup = new THREE.Group();
-  contentGroup.add(planeMesh);
-  contentGroup.visible = false;
-
-  // initial scale from optional real width
-  if(state.realWidth){ userScale = state.realWidth / state.aspect; }
+  if(state.realWidth) userScale = state.realWidth / state.aspect;
   applyTransform();
   scene.add(contentGroup);
 }
 
 function buildReticle(){
-  const g = new THREE.RingGeometry(0.07, 0.09, 40).rotateX(-Math.PI/2);
-  reticle = new THREE.Mesh(g, new THREE.MeshBasicMaterial({color:0xffb703}));
-  reticle.visible = false;
-  scene.add(reticle);
+  reticle = new THREE.Mesh(new THREE.RingGeometry(0.07,0.09,40).rotateX(-Math.PI/2),
+    new THREE.MeshBasicMaterial({color:0xffb703}));
+  reticle.visible = false; scene.add(reticle);
 }
-
 function buildPointer(){
-  // thin aiming line out of the right controller
-  const geo = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0,0,0), new THREE.Vector3(0,0,-5)]);
-  pointer = new THREE.Line(geo, new THREE.LineBasicMaterial({color:0x4cc9f0, transparent:true, opacity:0.6}));
-  pointer.visible = false;
-  scene.add(pointer);
+  const g = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0,0,0), new THREE.Vector3(0,0,-5)]);
+  pointer = new THREE.Line(g, new THREE.LineBasicMaterial({color:0x4cc9f0, transparent:true, opacity:0.6}));
+  pointer.visible = false; scene.add(pointer);
 }
-
 function buildHUD(){
-  hudCanvas = document.createElement('canvas');
-  hudCanvas.width = 700; hudCanvas.height = 230;
+  hudCanvas = document.createElement('canvas'); hudCanvas.width = 760; hudCanvas.height = 300;
   hudCtx = hudCanvas.getContext('2d');
-  hudTex = new THREE.CanvasTexture(hudCanvas);
-  hudTex.colorSpace = THREE.SRGBColorSpace;
-  const m = new THREE.MeshBasicMaterial({map:hudTex, transparent:true, toneMapped:false, depthTest:false, depthWrite:false});
-  hud = new THREE.Mesh(new THREE.PlaneGeometry(0.42, 0.138), m);
-  hud.renderOrder = 999;
-  scene.add(hud);
+  hudTex = new THREE.CanvasTexture(hudCanvas); hudTex.colorSpace = THREE.SRGBColorSpace;
+  hud = new THREE.Mesh(new THREE.PlaneGeometry(0.44, 0.174),
+    new THREE.MeshBasicMaterial({map:hudTex, transparent:true, toneMapped:false, depthTest:false, depthWrite:false}));
+  hud.renderOrder = 999; scene.add(hud);
 }
 
 function applyTransform(){
   if(!contentGroup) return;
   contentGroup.scale.setScalar(userScale);
   contentGroup.rotation.y = userRotation;
+  if(wallGroup) wallGroup.scale.set(1, wallHeightM / userScale, 1);
   hudDirty = true;
 }
 
@@ -434,143 +463,164 @@ function placeAtReticle(){
   if(!reticle.visible) return;
   contentGroup.position.copy(reticle.position);
   contentGroup.position.y = FLOOR_Y + PLANE_LIFT;
-  contentGroup.visible = true;
-  placed = true;
+  contentGroup.visible = true; placed = true; hudDirty = true;
+}
+
+// ---- wall extrusion from the chroma-key mask ----
+function buildWalls(){
+  if(!srcCtx) return;
+  while(wallGroup.children.length) wallGroup.remove(wallGroup.children[0]);
+  const longCells = 220;
+  let cols, rows;
+  if(state.aspect >= 1){ cols = longCells; rows = Math.max(1, Math.round(longCells/state.aspect)); }
+  else { rows = longCells; cols = Math.max(1, Math.round(longCells*state.aspect)); }
+  const gc = document.createElement('canvas'); gc.width = cols; gc.height = rows;
+  const gx = gc.getContext('2d', {willReadFrequently:true});
+  gx.drawImage(srcCanvas, 0, 0, cols, rows);
+  const data = gx.getImageData(0,0,cols,rows).data;
+  const occ = new Uint8Array(cols*rows);
+  for(let i=0;i<cols*rows;i++){
+    const o=i*4;
+    if(data[o+3] < 128){ occ[i]=0; continue; }
+    const r=srgb2lin(data[o]/255), g=srgb2lin(data[o+1]/255), b=srgb2lin(data[o+2]/255);
+    occ[i] = Math.hypot(r-keyColorLinear.r, g-keyColorLinear.g, b-keyColorLinear.b) > keyThresh ? 1 : 0;
+  }
+  const at = (c,r)=> (c<0||r<0||c>=cols||r>=rows) ? 0 : occ[r*cols+c];
+  const aspect=state.aspect, u0=state.originU, v0=state.originV;
+  const X=c=>(c/cols - u0)*aspect, Z=r=>(r/rows - v0);
+  const pos=[], col=[], base=new THREE.Color(0x8ea3b8);
+  const shade=y=>{ const t=0.5+0.5*y; return [base.r*t, base.g*t, base.b*t]; };
+  const tri=(p,q,r)=>{ pos.push(p[0],p[1],p[2], q[0],q[1],q[2], r[0],r[1],r[2]);
+    col.push(...shade(p[1]),...shade(q[1]),...shade(r[1])); };
+  const quad=(a,b,c,d)=>{ tri(a,b,c); tri(a,c,d); };
+  for(let r=0;r<rows;r++) for(let c=0;c<cols;c++){
+    if(!occ[r*cols+c]) continue;
+    const x0=X(c),x1=X(c+1),z0=Z(r),z1=Z(r+1);
+    if(!at(c-1,r)) quad([x0,0,z0],[x0,1,z0],[x0,1,z1],[x0,0,z1]);
+    if(!at(c+1,r)) quad([x1,0,z1],[x1,1,z1],[x1,1,z0],[x1,0,z0]);
+    if(!at(c,r-1)) quad([x1,0,z0],[x1,1,z0],[x0,1,z0],[x0,0,z0]);
+    if(!at(c,r+1)) quad([x0,0,z1],[x0,1,z1],[x1,1,z1],[x1,0,z1]);
+    quad([x0,1,z0],[x1,1,z0],[x1,1,z1],[x0,1,z1]); // top cap
+  }
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
+  geo.setAttribute('color', new THREE.Float32BufferAttribute(col, 3));
+  const mat = new THREE.MeshBasicMaterial({ vertexColors:true, side:THREE.DoubleSide, toneMapped:false });
+  wallGroup.add(new THREE.Mesh(geo, mat));
+  wallGroup.scale.set(1, wallHeightM / userScale, 1);
+  wallsBuilt = true;
+}
+function setWalls(on){
+  wallsWanted = on;
+  if(on && !wallsBuilt) buildWalls();
+  if(wallGroup) wallGroup.visible = on;
+  hudDirty = true;
+}
+function setKey(on){
+  keyEnabled = on;
+  if(planeMat && planeMat.userData.shader) planeMat.userData.shader.uniforms.uKeyEnabled.value = on?1:0;
   hudDirty = true;
 }
 
-// ray (controller forward) intersect floor plane y=FLOOR_Y
-const _p = new THREE.Vector3(), _d = new THREE.Vector3(), _q = new THREE.Quaternion();
+// ---- input + reticle ----
+const _p=new THREE.Vector3(), _d=new THREE.Vector3(), _q=new THREE.Quaternion();
 function updateReticle(ctrl){
-  if(!ctrl){ reticle.visible = false; pointer.visible = false; return; }
-  ctrl.getWorldPosition(_p);
-  ctrl.getWorldQuaternion(_q);
-  _d.set(0,0,-1).applyQuaternion(_q);          // controller forward
-  if(_d.y >= -1e-4){ reticle.visible = false; pointer.visible = false; return; } // not pointing down
+  if(!ctrl){ reticle.visible=false; pointer.visible=false; return; }
+  ctrl.getWorldPosition(_p); ctrl.getWorldQuaternion(_q);
+  _d.set(0,0,-1).applyQuaternion(_q);
+  if(_d.y >= -1e-4){ reticle.visible=false; pointer.visible=false; return; }
   const t = (FLOOR_Y - _p.y) / _d.y;
-  if(t <= 0){ reticle.visible = false; pointer.visible = false; return; }
-  reticle.position.copy(_p).addScaledVector(_d, t);
-  reticle.position.y = FLOOR_Y + 0.002;
+  if(t <= 0){ reticle.visible=false; pointer.visible=false; return; }
+  reticle.position.copy(_p).addScaledVector(_d, t); reticle.position.y = FLOOR_Y + 0.002;
   reticle.visible = !locked;
-  pointer.position.copy(_p);
-  pointer.quaternion.copy(_q);
-  pointer.scale.z = Math.min(t/5, 1.0) || 1;
-  pointer.visible = !locked;
+  pointer.position.copy(_p); pointer.quaternion.copy(_q);
+  pointer.scale.z = Math.min(t/5, 1.0) || 1; pointer.visible = !locked;
 }
-
 function getController(hand){
-  if(ctrlRight && ctrlRight.userData.handedness === hand) return ctrlRight;
-  if(ctrlLeft && ctrlLeft.userData.handedness === hand) return ctrlLeft;
+  if(ctrlRight && ctrlRight.userData.handedness===hand) return ctrlRight;
+  if(ctrlLeft  && ctrlLeft.userData.handedness===hand) return ctrlLeft;
   return null;
 }
 function getGamepad(hand){
-  const s = renderer.xr.getSession();
-  if(!s) return null;
-  for(const src of s.inputSources){ if(src.handedness === hand && src.gamepad) return src.gamepad; }
+  const s = renderer.xr.getSession(); if(!s) return null;
+  for(const src of s.inputSources) if(src.handedness===hand && src.gamepad) return src.gamepad;
   return null;
 }
-const DZ = 0.16;
-const dz = v => Math.abs(v) < DZ ? 0 : (v - Math.sign(v)*DZ)/(1-DZ);
+const DZ=0.16, dz=v=>Math.abs(v)<DZ?0:(v-Math.sign(v)*DZ)/(1-DZ);
 
 function onFrame(t){
-  const dt = lastT ? Math.min((t - lastT)/1000, 0.05) : 0.016;
-  lastT = t;
-
+  const dt = lastT ? Math.min((t-lastT)/1000, 0.05) : 0.016; lastT = t;
   updateReticle(getController('right'));
+  const right = getGamepad('right'), left = getGamepad('left');
 
-  const right = getGamepad('right');
-  const left  = getGamepad('left');
-
-  if(!locked && right && right.axes.length >= 4){
-    const rx = dz(right.axes[2]);   // rotate
-    const ry = dz(right.axes[3]);   // scale (stick up = negative -> grow)
-    if(rx){ userRotation -= rx * dt * 1.6; hudDirty = true; }
-    if(ry){ userScale = THREE.MathUtils.clamp(userScale * Math.exp(-ry * dt * 0.9), 0.05, 80); hudDirty = true; }
-    if(rx || ry) applyTransform();
+  if(!locked && right && right.axes.length>=4){
+    const rx=dz(right.axes[2]), ry=dz(right.axes[3]);
+    if(rx){ userRotation -= rx*dt*1.6; hudDirty=true; }
+    if(ry){ userScale = THREE.MathUtils.clamp(userScale*Math.exp(-ry*dt*0.9), 0.05, 80); hudDirty=true; }
+    if(rx||ry) applyTransform();
   }
-  if(!locked && left && left.axes.length >= 4){
-    const ly = dz(left.axes[3]);    // opacity
-    if(ly){ opacity = THREE.MathUtils.clamp(opacity - ly * dt * 0.8, 0.08, 1); planeMat.opacity = opacity; hudDirty = true; }
+  if(left && left.axes.length>=4){            // opacity — always, even locked
+    const ly=dz(left.axes[3]);
+    if(ly){ opacity = THREE.MathUtils.clamp(opacity - ly*dt*0.8, 0.08, 1); planeMat.opacity = opacity; hudDirty=true; }
   }
-
-  // A / B (right controller) edge-triggered
   if(right){
-    const a = !!(right.buttons[4] && right.buttons[4].pressed);
-    const b = !!(right.buttons[5] && right.buttons[5].pressed);
-    if(a && !prevButtons.a){ locked = !locked; hudDirty = true; }
-    if(b && !prevButtons.b){ userRotation = 0; userScale = state.realWidth ? state.realWidth/state.aspect : 3; applyTransform(); }
-    prevButtons.a = a; prevButtons.b = b;
+    const a=!!(right.buttons[4]&&right.buttons[4].pressed), b=!!(right.buttons[5]&&right.buttons[5].pressed);
+    if(a&&!prevBtn.a){ locked=!locked; hudDirty=true; }
+    if(b&&!prevBtn.b){ userRotation=0; userScale=state.realWidth?state.realWidth/state.aspect:3; applyTransform(); }
+    prevBtn.a=a; prevBtn.b=b;
   }
-
+  if(left){
+    const x=!!(left.buttons[4]&&left.buttons[4].pressed), y=!!(left.buttons[5]&&left.buttons[5].pressed);
+    if(x&&!prevBtn.x) setKey(!keyEnabled);
+    if(y&&!prevBtn.y) setWalls(!wallsWanted);
+    prevBtn.x=x; prevBtn.y=y;
+  }
   updateHUD();
   renderer.render(scene, camera);
 }
 
-const _camPos = new THREE.Vector3(), _camQuat = new THREE.Quaternion(), _fwd = new THREE.Vector3(), _down = new THREE.Vector3();
+const _cp=new THREE.Vector3(), _cq=new THREE.Quaternion(), _fw=new THREE.Vector3();
 function updateHUD(){
   if(hudDirty) drawHUD();
-  // billboard HUD low and in front of the user
   const cam = renderer.xr.getCamera();
-  cam.getWorldPosition(_camPos);
-  cam.getWorldQuaternion(_camQuat);
-  _fwd.set(0,0,-1).applyQuaternion(_camQuat);
-  _fwd.y = 0; if(_fwd.lengthSq()<1e-5) _fwd.set(0,0,-1); _fwd.normalize();
-  hud.position.copy(_camPos).addScaledVector(_fwd, 0.55);
-  hud.position.y -= 0.30;
-  hud.quaternion.copy(_camQuat);
+  cam.getWorldPosition(_cp); cam.getWorldQuaternion(_cq);
+  _fw.set(0,0,-1).applyQuaternion(_cq); _fw.y=0; if(_fw.lengthSq()<1e-5) _fw.set(0,0,-1); _fw.normalize();
+  hud.position.copy(_cp).addScaledVector(_fw, 0.55); hud.position.y -= 0.30;
+  hud.quaternion.copy(_cq);
 }
-
 function drawHUD(){
-  hudDirty = false;
-  const c = hudCtx, W = hudCanvas.width, H = hudCanvas.height;
+  hudDirty=false; const c=hudCtx, W=hudCanvas.width, H=hudCanvas.height;
   c.clearRect(0,0,W,H);
-  c.fillStyle = 'rgba(11,22,34,0.82)';
-  roundRect(c, 0,0,W,H,18); c.fill();
-  c.strokeStyle = locked ? '#5cd6a5' : '#1f4263'; c.lineWidth = 3;
-  roundRect(c, 1.5,1.5,W-3,H-3,17); c.stroke();
-
-  const widthM = state.aspect * userScale;
-  const depthM = userScale;
-  const deg = ((userRotation * 180/Math.PI) % 360 + 360) % 360;
-
-  c.textBaseline = 'alphabetic';
-  c.fillStyle = '#ffffff';
-  c.font = '600 46px ui-monospace, Menlo, monospace';
-  c.fillText(`${widthM.toFixed(2)} × ${depthM.toFixed(2)} m`, 26, 64);
-
-  c.font = '500 26px ui-monospace, Menlo, monospace';
-  c.fillStyle = '#9fb2c6';
-  c.fillText(`rotation ${deg.toFixed(0).padStart(3,' ')}°    opacity ${(opacity*100).toFixed(0)}%`, 26, 108);
-
-  c.font = '700 24px ui-monospace, Menlo, monospace';
-  if(locked){ c.fillStyle = '#5cd6a5'; c.fillText('● LOCKED', 26, 152); }
-  else if(!placed){ c.fillStyle = '#ffb703'; c.fillText('point at floor · trigger to place', 26, 152); }
-  else { c.fillStyle = '#4cc9f0'; c.fillText('live · stick: rotate / scale', 26, 152); }
-
-  c.font = '400 21px ui-monospace, Menlo, monospace';
-  c.fillStyle = '#6f8499';
-  c.fillText('trigger place · A lock · B reset', 26, 196);
-
+  c.fillStyle='rgba(11,22,34,0.82)'; rr(c,0,0,W,H,18); c.fill();
+  c.strokeStyle = locked?'#5cd6a5':'#1f4263'; c.lineWidth=3; rr(c,1.5,1.5,W-3,H-3,17); c.stroke();
+  const widthM=state.aspect*userScale, depthM=userScale, deg=((userRotation*180/Math.PI)%360+360)%360;
+  c.fillStyle='#ffffff'; c.font='600 46px ui-monospace,Menlo,monospace';
+  c.fillText(`${widthM.toFixed(2)} × ${depthM.toFixed(2)} m`, 26, 60);
+  c.fillStyle='#9fb2c6'; c.font='500 25px ui-monospace,Menlo,monospace';
+  c.fillText(`rotation ${deg.toFixed(0)}\u00B0    opacity ${(opacity*100).toFixed(0)}%`, 26, 100);
+  c.font='700 23px ui-monospace,Menlo,monospace';
+  if(locked){ c.fillStyle='#5cd6a5'; c.fillText('\u25CF LOCKED  (opacity still live)', 26, 142); }
+  else if(!placed){ c.fillStyle='#ffb703'; c.fillText('point at floor \u00B7 trigger to place', 26, 142); }
+  else { c.fillStyle='#4cc9f0'; c.fillText('live \u00B7 stick: rotate / scale', 26, 142); }
+  c.font='500 22px ui-monospace,Menlo,monospace'; c.fillStyle='#9fb2c6';
+  const flags = `bg ${keyEnabled?'on':'off'}   walls ${wallsWanted?'on':'off'}   occl ${occlActive?'on':'\u2014'}`;
+  c.fillText(flags, 26, 182);
+  c.font='400 20px ui-monospace,Menlo,monospace'; c.fillStyle='#6f8499';
+  c.fillText('trig place \u00B7 A lock \u00B7 B reset \u00B7 Lstick opacity \u00B7 X bg \u00B7 Y walls', 26, 222);
   hudTex.needsUpdate = true;
 }
-function roundRect(ctx,x,y,w,h,r){
-  ctx.beginPath();
-  ctx.moveTo(x+r,y); ctx.arcTo(x+w,y,x+w,y+h,r); ctx.arcTo(x+w,y+h,x,y+h,r);
-  ctx.arcTo(x,y+h,x,y,r); ctx.arcTo(x,y,x+w,y,r); ctx.closePath();
-}
+function rr(ctx,x,y,w,h,r){ ctx.beginPath(); ctx.moveTo(x+r,y);
+  ctx.arcTo(x+w,y,x+w,y+h,r); ctx.arcTo(x+w,y+h,x,y+h,r); ctx.arcTo(x,y+h,x,y,r); ctx.arcTo(x,y,x+w,y,r); ctx.closePath(); }
 
 function cleanup(){
   renderer.setAnimationLoop(null);
   if(renderer.domElement && renderer.domElement.parentNode) renderer.domElement.parentNode.removeChild(renderer.domElement);
-  placed = false; locked = false; lastT = 0;
+  placed=false; locked=false; lastT=0; wallsBuilt=false;
   setStatus('session ended — ready to re-enter', true);
 }
-
-window.addEventListener('resize', ()=>{
-  if(!renderer) return;
+window.addEventListener('resize', ()=>{ if(!renderer) return;
   camera.aspect = window.innerWidth/window.innerHeight; camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth, window.innerHeight);
-});
+  renderer.setSize(window.innerWidth, window.innerHeight); });
 </script>
 </body>
 </html>
