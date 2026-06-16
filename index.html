@@ -392,6 +392,13 @@ const opening=(m,w,h,it)=>dilate(erode(m,w,h,it),w,h,it), closing=(m,w,h,it)=>er
 function and2(a,b){ const o=new Uint8Array(a.length); for(let i=0;i<a.length;i++) o[i]=(a[i]&&b[i])?1:0; return o; }
 function and3(a,b,c){ const o=new Uint8Array(a.length); for(let i=0;i<a.length;i++) o[i]=(a[i]&&b[i]&&c[i])?1:0; return o; }
 function notM(a){ const o=new Uint8Array(a.length); for(let i=0;i<a.length;i++) o[i]=a[i]?0:1; return o; }
+function or2(a,b){ const o=new Uint8Array(a.length); for(let i=0;i<a.length;i++) o[i]=(a[i]||b[i])?1:0; return o; }
+function floodOutside(mask,w,h){ // 1 where mask==0 and reachable from the image border (the exterior)
+  const vis=new Uint8Array(w*h), st=[];
+  const tryp=(x,y)=>{ const i=y*w+x; if(!mask[i]&&!vis[i]){ vis[i]=1; st.push(i); } };
+  for(let x=0;x<w;x++){ tryp(x,0); tryp(x,h-1); } for(let y=0;y<h;y++){ tryp(0,y); tryp(w-1,y); }
+  while(st.length){ const i=st.pop(),x=i%w,y=(i/w)|0; if(x>0)tryp(x-1,y); if(x<w-1)tryp(x+1,y); if(y>0)tryp(x,y-1); if(y<h-1)tryp(x,y+1); }
+  return vis; }
 function fillHoles(mask,w,h){ const out=Uint8Array.from(mask), vis=new Uint8Array(w*h), st=[];
   const tryp=(x,y)=>{ const i=y*w+x; if(!mask[i]&&!vis[i]){ vis[i]=1; st.push(i); } };
   for(let x=0;x<w;x++){ tryp(x,0); tryp(x,h-1); } for(let y=0;y<h;y++){ tryp(0,y); tryp(w-1,y); }
@@ -438,12 +445,22 @@ function buildStructure(){
   const ctx=pc.getContext('2d',{willReadFrequently:true}); ctx.drawImage(srcCanvas,0,0,W,H);
   const d=ctx.getImageData(0,0,W,H).data, N=W*H;
   const floor=new Uint8Array(N), dark=new Uint8Array(N), fc=floorColorSRGB;
+  const dRB=fc.r-fc.b;                                  // floor's red-blue signature (tan ~ +63)
   for(let i=0;i<N;i++){ const o=i*4, R=d[o],Gc=d[o+1],B=d[o+2];
     dark[i]=(0.299*R+0.587*Gc+0.114*B)<58?1:0;
-    const dr=R-fc.r,dg=Gc-fc.g,db=B-fc.b; floor[i]=(dr*dr+dg*dg+db*db)<4900?1:0; }
+    const dr=R-fc.r,dg=Gc-fc.g,db=B-fc.b;
+    // floor must be close to the floor color AND share its hue lean — rejects light greys/whites
+    floor[i]=((dr*dr+dg*dg+db*db)<4900 && Math.abs((R-B)-dRB)<28)?1:0; }
   const F=fillHoles(closing(floor,W,H,6),W,H);
-  const walls=opening(and2(dark,dilate(F,W,H,6)),W,H,2);
-  let obj=and3(F,notM(floor),notM(dark)); obj=and2(obj,notM(dilate(walls,W,H,1)));
+  const outside=floodOutside(F,W,H);
+  let walls=opening(and2(dark,dilate(F,W,H,6)),W,H,2);
+  // exterior perimeter wall: wall pixels hugging the outside — excluded so real windows show through
+  const extWall=and2(walls,dilate(outside,W,H,8));
+  // wide dark blobs (e.g. a black table) are thicker than walls -> treat as objects, not walls
+  const thickBlob=and2(dilate(erode(dark,W,H,5),W,H,7),F);
+  walls=and2(walls,notM(or2(extWall,thickBlob)));
+  let obj=or2(and3(F,notM(floor),notM(dark)),thickBlob);
+  obj=and2(obj,notM(dilate(walls,W,H,1)));
   obj=opening(obj,W,H,1); obj=removeSmall(obj,W,H,28);
   // downsample to mesh grid
   const gl=300; let gc,gr; if(state.aspect>=1){ gc=gl; gr=Math.max(1,Math.round(gl/state.aspect)); } else { gr=gl; gc=Math.max(1,Math.round(gl*state.aspect)); }
